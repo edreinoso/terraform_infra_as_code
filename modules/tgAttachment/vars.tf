@@ -9,3 +9,8 @@ variable "tg-id" {
   # type    = "list"
   # default = []
 }
+
+variable "port" {
+  type    = "string"
+  default = ""
+}

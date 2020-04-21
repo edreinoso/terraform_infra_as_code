@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "nat-sg-rule-01" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  cidr_blocks       = ["71.113.186.65/32"]
+  cidr_blocks       = "${split(",", var.ips)}"
   security_group_id = "${aws_security_group.nat-sg.id}"
 }
 

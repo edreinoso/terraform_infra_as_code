@@ -47,3 +47,13 @@ variable "security-group-ids" {
   type    = "list"
   default = []
 }
+
+variable "instance-role" {
+  type    = "string"
+  default = ""
+}
+
+variable "volume-size" {
+  type    = "string"
+  default = ""
+}

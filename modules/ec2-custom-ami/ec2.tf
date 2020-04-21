@@ -15,6 +15,8 @@ resource "aws_instance" "ec2" {
   instance_type               = "${var.instance-type}"
   subnet_id                   = "${var.subnet-ids}"
   key_name                    = "${var.key-name}"
+  iam_instance_profile        = "${var.instance-role}"
+
   associate_public_ip_address = "${var.public-ip == "" ? false : true}"
   source_dest_check           = "${var.sourceCheck == "" ? false : true}"
   vpc_security_group_ids      = "${var.security-group-ids}"
@@ -24,4 +26,9 @@ resource "aws_instance" "ec2" {
     Environment = "${terraform.workspace}"
     Template    = "${var.template}"
   }
+
+  # ebs_block_device {
+  #   device_name = "${var.ec2-name}"
+  #   volume_size = "${var.volume-size}"
+  # }
 }

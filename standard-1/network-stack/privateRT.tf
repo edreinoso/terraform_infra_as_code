@@ -18,14 +18,3 @@ module "rtToPriSubnet2" {
   rt-id        = "${module.privateRT.rt-id}"
   subnet-cidrs = "${split(",",lookup(var.az2PrivateSubnetCidr, terraform.workspace))}"
 }
-
-#only challenge I see here is the creation of routes before the instance
-#this cannot of course happen at this layer because we'd be working on
-#two different folders. One folder cannot relate to the other one.
-
-# module "privateRoutes" {
-#   source       = "../../modules/route/"
-#   routeTableId = "${module.publicRT.rt-id}"
-#   destination  = "${var.destinationRoute}"
-#   igw          = "${module.igw-vpc.igw-id}"
-# }

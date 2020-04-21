@@ -1,5 +1,4 @@
 ### VPC ###
-
 module "new-vpc" {
   source              = "../modules/vpc"
   vpc-cidr            = "${lookup(var.vpc-cidr, terraform.workspace)}"
@@ -66,7 +65,6 @@ module "pri_subnet_2" {
 }
 
 ### INTERNET GATEWAY ###
-
 module "igw-vpc" {
   source   = "../modules/igw"
   vpc-id   = "${module.new-vpc.vpc-id}"
@@ -75,7 +73,6 @@ module "igw-vpc" {
 }
 
 ### ROUTE TABLES ###
-
 module "privateRT" {
   source   = "../modules/rt"
   vpc-id   = "${module.new-vpc.vpc-id}"

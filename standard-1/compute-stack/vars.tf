@@ -57,7 +57,7 @@ variable "sourceCheck-disable" {
   default = ""
 }
 
-#Web | nat
+#Web
 variable "ec2-name-pub-nat" {
   type    = "string"
   default = "nat-host"
@@ -73,15 +73,17 @@ variable "key-name-pub" {
   default = "base-template"
 }
 
-variable "subnet-pub" {
+variable "instance-role" {
   type    = "string"
-  default = "subnet-0ada7236d2467ab18"
+  default = "EC2_Role"
 }
 
-variable "security-groups-pub" {
+
+variable "volume-size" {
   type    = "string"
-  default = "sg-007276f39035f5ac9"
+  default = "8"
 }
+
 
 #App
 variable "ec2-name-pri" {
@@ -94,28 +96,12 @@ variable "key-name-pri" {
   default = "internal-base-template"
 }
 
-variable "subnet-pri" {
-  type    = "string"
-  default = "subnet-0ef4f173c44d59b1e"
-}
-
-variable "security-groups-pri" {
-  type    = "string"
-  default = "sg-0960179dd41021b55"
-}
-
 # Route Table Association to NAT
-variable "routeTableId" {
-  type    = "string"
-  default = "rtb-04a76028fc10e8e6f"
-}
-
 variable "destinationRoute" {
   type    = "string"
   default = "0.0.0.0/0"
 }
 
-## --> for later use
 # Load Balancers
 variable "elb-name" {
   type    = "string"
@@ -130,16 +116,6 @@ variable "elb-type" {
 variable "internal-elb" {
   type    = "string"
   default = "false"
-}
-
-variable "elb-subnets" {
-  type    = "string"
-  default = "subnet-0ada7236d2467ab18,subnet-03703091f5ad612cc"
-}
-
-variable "elb-sg" {
-  type    = "string"
-  default = "sg-00ac5dbf45a445334"
 }
 
 variable "elb-tg-name" {
@@ -165,7 +141,7 @@ variable "tg-target-type" {
 # S3
 variable "bucket-name" {
   type    = "string"
-  default = "sample-load-balancer-logs-bucket"
+  default = "load-balancer-logs-bucket"
 }
 
 variable "acl" {

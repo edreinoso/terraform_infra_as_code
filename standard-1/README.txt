@@ -1,6 +1,9 @@
-This standard package provides 2 stacks for a simple architecture
-These stacks need to deployed separately from each other since
-there is no communication in between then.
+This standard package provides a simple 2 tier architecture that 
+deployes a Network stack and a Compute stack. The former is going 
+deploy a VPC, Subnets and other related networking resources to 
+build the base for the Compute stack. The Compute stack deployes 
+a bastion host, web server, a load balancer with listeners and 
+target groups. This is the layout:
 
 Network Stack:
 -- VPC
@@ -12,18 +15,22 @@ Network Stack:
 ---- Routes
 ---- RT Associations
 -- IGW
--- SG
---- SG ALB
---- SG Web
---- SG App
---- SG DB
 
+Security Resources:
+-- SG ALB
+-- SG Web
+-- SG DB
 
 Compute Stack:
--- alb
+-- ALB
 --- target groups
 --- target group attachment
 --- listeners
--- bastion host
--- web server
--- application server
+-- 2 Servers
+--- bastion host
+--- web server (with build script)
+
+
+
+NOTE: each stack is going to be deployed separately. Network stack has to be
+deployed before the Compute stack.

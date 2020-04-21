@@ -1,11 +1,11 @@
 # ELB SG
 resource "aws_security_group" "elb-sg" {
   name        = "elb-${lookup(var.environment, terraform.workspace)}"
-  description = "ELB security group for ${lookup(var.environment, terraform.workspace)} environment"
+  description = "HTTP security group for ${lookup(var.environment, terraform.workspace)} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name = "elb-${lookup(var.environment, terraform.workspace)}"
+    Name     = "elb-${lookup(var.environment, terraform.workspace)}"
     Template = "${var.template}"
   }
 }

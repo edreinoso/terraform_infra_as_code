@@ -31,14 +31,14 @@ output "pri-subnet-2-id" {
 }
 
 # Securiy Groups Ouputs
-output "nat-sg-id" {
-  value = ["${aws_security_group.nat-sg.id}"]
-}
-
 output "elb-sg-id" {
-  value = ["${aws_security_group.elb-sg.id}"]
+  value = "${aws_security_group.elb-sg.id}"
 }
 
-output "internal-sg-id" {
-  value = ["${aws_security_group.internal-sg.id}"]
+output "public-sg-id" {
+  value = "${aws_security_group.nat-sg.id}"
+}
+
+output "private-sg-id" {
+  value = "${aws_security_group.internal-sg.id}"
 }

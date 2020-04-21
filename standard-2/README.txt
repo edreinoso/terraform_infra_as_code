@@ -9,21 +9,21 @@ Network Stack:
 ---- App
 ---- DB
 -- RT
----- Routes
+---- Routes (pubs and pri)
 ---- RT Associations
 -- IGW
--- SG
---- SG ALB
---- SG Web
---- SG App
---- SG DB
 
+Security Resources:
+-- SG ALB
+-- SG Web
+-- SG App
+-- SG DB
 
 Compute Stack:
--- alb
+-- ALB
 --- target groups
 --- target group attachment
 --- listeners
--- bastion host
--- web server
--- application server
+-- 2 Servers
+--- bastion host
+--- web server (with build script)

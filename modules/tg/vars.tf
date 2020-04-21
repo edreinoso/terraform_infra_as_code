@@ -26,3 +26,8 @@ variable "tg-target-type" {
   type    = "string"
   default = ""
 }
+
+variable "deregistration" {
+  type    = "string"
+  default = ""
+}

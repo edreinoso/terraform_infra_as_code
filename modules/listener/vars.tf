@@ -18,7 +18,7 @@ variable "target-group-arn" {
   default = ""
 }
 
-variable "certArn" {
+variable "certificate-arn" {
   type    = "string"
   default = ""
 }

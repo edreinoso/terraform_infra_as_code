@@ -5,7 +5,7 @@ resource "aws_security_group" "nat-sg" {
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name = "${var.sg-name-pub}-${lookup(var.environment, terraform.workspace)}-ssh"
+    Name     = "${var.sg-name-pub}-${lookup(var.environment, terraform.workspace)}-ssh"
     Template = "${var.template}"
   }
 }
@@ -13,21 +13,21 @@ resource "aws_security_group" "nat-sg" {
 #would this rule be really needed?
 resource "aws_security_group_rule" "nat-sg-rule-01" {
   # count     = "${length(var.cidr-blocks)}"
-  type        = "ingress"
-  from_port   = 22
-  to_port     = 22
-  protocol    = "tcp"
-  cidr_blocks = ["71.113.186.65/32"]
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = "${split(",", var.ips)}"
   security_group_id = "${aws_security_group.nat-sg.id}"
 }
 
 resource "aws_security_group_rule" "nat-sg-rule-02" {
   # count     = "${length(var.cidr-blocks)}"
-  type        = "ingress"
-  from_port   = 0
-  to_port     = 0
-  protocol    = "all"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "all"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = "${aws_security_group.nat-sg.id}"
 }
 

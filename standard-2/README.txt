@@ -1,6 +1,4 @@
-This standard package provides 2 stacks for a simple architecture
-These stacks will be deployed together in the same directory. It is
-important to notice that these stacks will be composed by two modules:
+This standard package provides a simple 2 tier architecture that deployes a Network stack and a Compute stack. The former is going deploy a VPC, Subnets and other related networking resources to build the base for the Compute stack. The Compute stack deployes a bastion host, web server, a load balancer with listeners and target groups. This is the layout:
 
 Network Stack:
 -- VPC
@@ -27,3 +25,5 @@ Compute Stack:
 -- 2 Servers
 --- bastion host
 --- web server (with build script)
+
+NOTE: everything is going to be deployed at once!

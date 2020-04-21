@@ -1,7 +1,6 @@
 # Terraform Infrastructure as Code
 
-# Run resources:
-###
+Run resources:
 
 ```
 1. go to the template (standard-1/standard-2)

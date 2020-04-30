@@ -38,13 +38,23 @@ variable "stream-view" {
   default = ""
 }
 
+variable "ttl-enable" {
+  type    = "string"
+  default = ""
+}
+
+variable "ttl-attribute" {
+  type    = "string"
+  default = ""
+}
+
 variable "app" {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
 variable "created" {
-  type = "string"
+  type    = "string"
   default = ""
 }
 

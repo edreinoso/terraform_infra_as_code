@@ -13,6 +13,11 @@ resource "aws_dynamodb_table" "dynamodb-table" {
     type = "${var.attribute-type}" # S, N, or B for (S)tring, (N)umber or (B)inary data
   }
 
+  ttl {
+    enabled   = "${var.ttl-enabled}"
+    attribute = "${var.ttl-attribute}"
+  }
+
   # dynamic "attribute" {
   #   for_each = local.attributes_final
   #   content {

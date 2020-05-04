@@ -16,6 +16,7 @@ resource "aws_db_instance" "rds" {
   port                      = "${var.db-port}"
   final_snapshot_identifier = "${var.final-snapshot}"
   snapshot_identifier       = "${var.snapshot-identifier}"
+  skip_final_snapshot       = "${var.skip-final}"
 
   tags = {
     Name        = "${var.rds-name}"

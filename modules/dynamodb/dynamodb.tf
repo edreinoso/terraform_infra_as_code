@@ -14,8 +14,8 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   }
 
   ttl {
-    enabled   = "${var.ttl-enabled}"
-    attribute = "${var.ttl-attribute}"
+    enabled        = "${var.ttl-enabled}"
+    attribute_name = "${var.ttl-attribute}"
   }
 
   # dynamic "attribute" {

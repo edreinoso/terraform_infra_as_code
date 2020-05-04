@@ -38,7 +38,7 @@ variable "stream-view" {
   default = ""
 }
 
-variable "ttl-enable" {
+variable "ttl-enabled" {
   type    = "string"
   default = ""
 }

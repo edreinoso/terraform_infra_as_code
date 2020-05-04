@@ -97,3 +97,8 @@ variable "db-name" {
   type    = "string"
   default = ""
 }
+
+variable "skip-final" {
+  type    = "string"
+  default = ""
+}

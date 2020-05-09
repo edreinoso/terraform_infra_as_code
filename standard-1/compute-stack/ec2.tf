@@ -36,7 +36,7 @@ module "web-server" {
   source        = "../../modules/ec2"
   ami           = "${var.ami}"
   instance-type = "${var.instance-type}"
-  ec2-name      = "${var.ec2-name-web}"
+  ec2-name      = "${var.ec2-name-app}"
   public-ip     = "${var.public-ip-association-false}"
   sourceCheck   = "${var.sourceCheck-enable}"
   key-name      = "${var.key-name-pri}"

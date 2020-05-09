@@ -63,9 +63,9 @@ variable "ec2-name-pub-nat" {
   default = "nat-host"
 }
 
-variable "ec2-name-web" {
+variable "ec2-name-app" {
   type    = "string"
-  default = "web-server"
+  default = "app-server"
 }
 
 variable "key-name-pub" {

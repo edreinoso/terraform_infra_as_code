@@ -14,4 +14,4 @@ cd /Users/ELCHOCO/AWS/aws-infra-template/
 read -p "Enter a commit message: " message
 git add .
 git commit -m "$message"
-git push -u origin dev
+git push

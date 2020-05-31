@@ -1,12 +1,14 @@
 # SSH SG
 resource "aws_security_group" "internal-sg" {
-  name        = "${var.sg-name-pri}-${lookup(var.environment, terraform.workspace)}-ssh"
-  description = "Internal security group for ${lookup(var.environment, terraform.workspace)} environment"
-  vpc_id      = "${module.new-vpc.vpc-id}"
+  name        = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+  description = "Internal security group for application and web servers in ${terraform.workspace} environment"
+  vpc_id      = "${element(data.terraform_remote_state.vpc.outputs.vpc-id, 1)}"
 
   tags = {
-    Name     = "${var.sg-name-pri}-${lookup(var.environment, terraform.workspace)}-ssh"
-    Template = "${var.template}"
+    Name          = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+    Template      = "${var.template}"
+    Environment   = "${terraform.workspace}"
+    Creation_Date = "${var.created-on}"
   }
 }
 

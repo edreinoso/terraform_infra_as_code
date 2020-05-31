@@ -29,16 +29,3 @@ output "pri-subnet-1-id" {
 output "pri-subnet-2-id" {
   value = ["${module.pri_subnet_2.subnet-id}"]
 }
-
-# Securiy Groups Ouputs
-output "elb-sg-id" {
-  value = "${aws_security_group.elb-sg.id}"
-}
-
-output "public-sg-id" {
-  value = "${aws_security_group.nat-sg.id}"
-}
-
-output "private-sg-id" {
-  value = "${aws_security_group.internal-sg.id}"
-}

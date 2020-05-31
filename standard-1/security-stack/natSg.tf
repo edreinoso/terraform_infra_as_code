@@ -1,12 +1,14 @@
 # SSH SG
 resource "aws_security_group" "nat-sg" {
-  name        = "${var.sg-name-pub}-${lookup(var.environment, terraform.workspace)}-ssh"
-  description = "SSH security group for ${lookup(var.environment, terraform.workspace)} environment"
-  vpc_id      = "${module.new-vpc.vpc-id}"
+  name        = "${var.sg-name-pub}-${terraform.workspace}-ssh"
+  description = "Bastion security group for ${terraform.workspace} environment"
+  vpc_id      = "${element(data.terraform_remote_state.vpc.outputs.vpc-id, 1)}"
 
   tags = {
-    Name     = "${var.sg-name-pub}-${lookup(var.environment, terraform.workspace)}-ssh"
-    Template = "${var.template}"
+    Name          = "${var.sg-name-pub}-${terraform.workspace}-ssh"
+    Template      = "${var.template}"
+    Environment   = "${terraform.workspace}"
+    Creation_Date = "${var.created-on}"
   }
 }
 

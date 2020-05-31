@@ -1,19 +1,12 @@
-variable "AWS_REGIONS" {
-  default = "us-east-1"
-}
-
-#Environment
-variable "environment" {
-  type = "map"
-
-  default = {
-    dev = "dev"
-  }
-}
-
+#TAGS
 variable "template" {
-  type = "string"
-  default = "standard-1"
+  type    = "string"
+  default = "sandbox"
+}
+
+variable "created-on" {
+  type    = "string"
+  default = "May 30th 2020"
 }
 
 #VPC Components
@@ -21,7 +14,7 @@ variable "vpc-name" {
   type = "map"
 
   default = {
-    dev = "sample-vpc"
+    dev = "sandbox-vpc"
   }
 }
 
@@ -46,7 +39,7 @@ variable "vpc-dns-support" {
 #Internet gateway
 variable "igw-name" {
   type    = "string"
-  default = "sample-igw"
+  default = "sandbox-igw"
 }
 
 #Subnet component
@@ -72,6 +65,11 @@ variable "az1PublicSubnetNames" {
   }
 }
 
+variable "publicSubnet" {
+  type    = "string"
+  default = "public"
+}
+
 variable "az2PublicSubnetCidr" {
   type = "map"
 
@@ -87,17 +85,12 @@ variable "az2PublicSubnetNames" {
     dev = "public-subnet-02"
   }
 }
-
-variable "publicSubnet" {
-  type    = "string"
-  default = "public"
-}
-
 #Private subnets
 variable "private-type" {
   type    = "string"
   default = "private"
 }
+
 variable "az1PrivateSubnetCidr" {
   type = "map"
 
@@ -130,11 +123,6 @@ variable "az2PrivateSubnetNames" {
   }
 }
 
-variable "privateSubnet" {
-  type    = "string"
-  default = "private"
-}
-
 variable "main-subnet" {
   type    = "string"
   default = "main-subnet"
@@ -159,20 +147,4 @@ variable "privateRouteTable" {
 variable "destinationRoute" {
   type    = "string"
   default = "0.0.0.0/0"
-}
-
-# Security Group
-variable "sg-name-pub" {
-  type    = "string"
-  default = "pub"
-}
-
-variable "sg-name-pri" {
-  type    = "string"
-  default = "pri"
-}
-
-variable "ips" {
-  type    = "string"
-  default = "71.113.186.65/32,66.185.240.110/32,207.237.192.135/32"
 }

@@ -1,4 +1,6 @@
-### Standard 2
+this will include a database
+
+### Standard 3
 
 ![architecture-1](https://personal-website-assets.s3.amazonaws.com/Projects/architectures.png)
 
@@ -10,6 +12,7 @@ Network Stack:
   - Public
   - Web
   - App
+  - DB
 - RT
   - Routes (pubs and pri)
   - RT Associations
@@ -27,8 +30,12 @@ Compute Stack:
   - target group attachment
   - listeners
 - 2 Servers
-  - bastion host
+  - NAT bastion host
   - web server (with build script)
+
+Database Stack:
+- RDS
+  - subnet group
 
 Storage:
 - S3 bucket for load balancer logs

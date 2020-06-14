@@ -6,7 +6,8 @@ This standard package provides a simple 2 tier architecture that deployes a Netw
 
 Network Stack:
 - VPC
-- 3 Subnets
+- 4 Subnets
+  - Public
   - Web
   - App
   - DB

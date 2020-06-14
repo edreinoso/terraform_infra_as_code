@@ -50,7 +50,7 @@ variable "az1PublicSubnetNames" {
   type = "map"
 
   default = {
-    dev = "public-web-subnet-01"
+    dev = "public-subnet-01"
   }
 }
 
@@ -66,7 +66,7 @@ variable "az2PublicSubnetNames" {
   type = "map"
 
   default = {
-    dev = "public-web-subnet-02"
+    dev = "public-subnet-02"
   }
 }
 
@@ -143,20 +143,4 @@ variable "privateRouteTable" {
 variable "destinationRoute" {
   type    = "string"
   default = "0.0.0.0/0"
-}
-
-# Security Group
-variable "sg-name-pub" {
-  type    = "string"
-  default = "pub"
-}
-
-variable "sg-name-pri" {
-  type    = "string"
-  default = "pri"
-}
-
-variable "sg-name-elb" {
-  type    = "string"
-  default = "elb"
 }

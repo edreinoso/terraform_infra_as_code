@@ -22,3 +22,8 @@ variable "certificate-arn" {
   type    = "string"
   default = ""
 }
+
+variable "ssl-policy" {
+  type = "string"
+  default = ""
+}

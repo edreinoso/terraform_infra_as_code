@@ -1,8 +1,8 @@
-### Standard 2
+### Template 1 - Deploy BY SECTION
 
 ![architecture-1](https://personal-website-assets.s3.amazonaws.com/Projects/architectures.png)
 
-This standard package provides a simple 2 tier architecture that deployes a Network stack and a Compute stack. The former is going deploy a VPC, Subnets and other related networking resources to build the base for the Compute stack. The Compute stack deployes a bastion host, web server, a load balancer with listeners and target groups. This is the layout:
+This template provides a simple 2 tier architecture that deployes a Network stack and a Compute stack. The former is going deploy a VPC, Subnets and other related networking resources to build the base for the Compute stack. The Compute stack deployes a bastion host, web server, a load balancer with listeners and target groups. This is the layout:
 
 Network Stack:
 - VPC
@@ -10,6 +10,7 @@ Network Stack:
   - Public
   - Web
   - App
+  - DB
 - RT
   - Routes (pubs and pri)
   - RT Associations

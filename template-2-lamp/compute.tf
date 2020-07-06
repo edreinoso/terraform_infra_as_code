@@ -37,11 +37,6 @@ module "elb" {
   internal-elb   = "${var.internal-elb}"
   elb-type       = "${var.elb-type}"
   security-group = "${split(",", aws_security_group.elb-sg.id)}"
-  # this is where the difficult part lies
-  # trying to get terraform to know which subnest the ELB should go
-  # the ELB needs to be highly available. Hence it needs to span 
-  # between 2 different subnets.
-
   subnet-ids     = ["${element(module.pub_subnet_1.subnet-id,1)}","${element(module.pub_subnet_2.subnet-id,1)}"]
   template    = "${var.template}"
   bucket-name = "${var.bucket-name}"

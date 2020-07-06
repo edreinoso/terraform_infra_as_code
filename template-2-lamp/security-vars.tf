@@ -14,6 +14,11 @@ variable "sg-name-elb" {
   default = "elb"
 }
 
+variable "sg-name-db-pri" {
+  type    = "string"
+  default = "database-sg-private"
+}
+
 variable "ips" {
   type    = "string"
   default = "71.113.186.65/32"

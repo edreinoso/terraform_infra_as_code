@@ -6,7 +6,7 @@ This template package provides a simple 2 tier architecture that deployes a Netw
 
 Network Stack:
 - VPC
-- 4 Subnets
+- 3 Subnets
   - Public
   - Web
   - App

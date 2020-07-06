@@ -1,19 +1,19 @@
 variable "name" {
-    type = "string"
-    default = ""
+  type    = "string"
+  default = ""
 }
 
 variable "subnet-ids" {
-    type = "list"
-    default = []
+  type    = "list"
+  default = []
 }
 
 variable "environment" {
-    type = "string"
-    default = ""
+  type    = "string"
+  default = ""
 }
 
 variable "template" {
-    type = "string"
-    default = ""
+  type    = "string"
+  default = ""
 }

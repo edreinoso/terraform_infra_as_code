@@ -1,11 +1,11 @@
 # NAT SG
 resource "aws_security_group" "nat-sg" {
-  name        = "${var.sg-name-pub}-${terraform.workspace)}-ssh"
-  description = "SSH security group for ${terraform.workspace)} environment"
+  name        = "${var.sg-name-pub}-${terraform.workspace}-ssh"
+  description = "SSH security group for ${terraform.workspace} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-pub}-${terraform.workspace)}-ssh"
+    Name     = "${var.sg-name-pub}-${terraform.workspace}-ssh"
     Template = "${var.template}"
   }
 }
@@ -39,12 +39,12 @@ resource "aws_security_group_rule" "nat-sg-rule-egress" {
 
 # ELB SG
 resource "aws_security_group" "elb-sg" {
-  name        = "elb-${terraform.workspace)}"
-  description = "ELB security group for ${terraform.workspace)} environment"
+  name        = "elb-${terraform.workspace}"
+  description = "ELB security group for ${terraform.workspace} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-elb}-${terraform.workspace)}"
+    Name     = "${var.sg-name-elb}-${terraform.workspace}"
     Template = "${var.template}"
   }
 }
@@ -69,12 +69,12 @@ resource "aws_security_group_rule" "elb-sg-rule-egress" {
 
 # Web Server SG
 resource "aws_security_group" "web-sg" {
-  name        = "${var.sg-name-pri}-${terraform.workspace)}-ssh"
-  description = "SSH security group for ${terraform.workspace)} environment"
+  name        = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+  description = "SSH security group for ${terraform.workspace} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-pri}-${terraform.workspace)}-ssh"
+    Name     = "${var.sg-name-pri}-${terraform.workspace}-ssh"
     Template = "${var.template}"
   }
 }

@@ -25,7 +25,23 @@ variable "instance-class" {
 
 variable "rds-name" {
   type    = "string"
-  default = "personal-website"
+  default = "sample-rds"
+}
+
+variable "username" {
+  type    = "string"
+  default = "edreinoso"
+}
+
+# password should be opmitted 
+variable "password" {
+  type    = "string"
+  default = "VivaV3n3zuela."
+}
+
+variable "db-name" {
+  type    = "string"
+  default = "LAMP"
 }
 
 variable "publicly-accessible" {
@@ -48,19 +64,19 @@ variable "route53-zone-id" {
   default = "Z1AJ8ZWN9ZA2LW"
 }
 
+variable "skip-final-snapshot" {
+  type    = "string"
+  default = "false"
+}
+
 variable "snapshot-identifier" {
   type    = "string"
-  default = "personal-website-dev-snapshot"
+  default = "template-2-dev-snapshot"
 }
 
 variable "final-snapshot" {
   type    = "string"
-  default = "terraform-snapshot-personal-website-prod"
-}
-
-variable "skip-final-snapshot" {
-  type    = "string"
-  default = "true"
+  default = "terraform-snapshot-template-2-prod"
 }
 
 variable "recordName" {

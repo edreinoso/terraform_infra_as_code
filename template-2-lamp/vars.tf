@@ -13,5 +13,5 @@ variable "environment" {
 
 variable "template" {
   type    = "string"
-  default = "template-2-lamp"
+  default = "template-2"
 }

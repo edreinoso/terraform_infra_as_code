@@ -1,27 +1,5 @@
-variable "AWS_REGIONS" {
-  default = "us-east-1"
-}
-
-#Environment
-variable "environment" {
-  type = "map"
-
-  default = {
-    dev = "dev"
-  }
-}
-
-variable "template" {
-  type    = "string"
-  default = "standard-1"
-}
-
-variable "vpc-id" {
-  type    = "string"
-  default = "vpc-0f32b4aa835563041"
-}
-
-#EC2 Components
+# EC2
+#Web | NAT
 variable "ami" {
   type    = "string"
   default = "ami-0b898040803850657"
@@ -29,7 +7,7 @@ variable "ami" {
 
 variable "custom-ami" {
   type    = "string"
-  default = "NAT-Instance-AMI"
+  default = "nat-ami-5-11"
 }
 
 variable "instance-type" {
@@ -42,30 +20,29 @@ variable "public-ip-association-true" {
   default = "true"
 }
 
+variable "sourceCheck-enable" {
+  type = "string"
+  default = "true"
+}
+
+variable "sourceCheck-disable" {
+  type = "string"
+  default = ""
+}
+
 variable "public-ip-association-false" {
   type    = "string"
   default = ""
 }
 
-variable "sourceCheck-enable" {
-  type    = "string"
-  default = "true"
-}
-
-variable "sourceCheck-disable" {
-  type    = "string"
-  default = ""
-}
-
-#Web
 variable "ec2-name-pub-nat" {
   type    = "string"
   default = "nat-host"
 }
 
-variable "ec2-name-app" {
+variable "ec2-name-pri-web" {
   type    = "string"
-  default = "app-server"
+  default = "web-server"
 }
 
 variable "key-name-pub" {
@@ -73,36 +50,12 @@ variable "key-name-pub" {
   default = "base-template"
 }
 
-variable "instance-role" {
-  type    = "string"
-  default = "EC2_Role"
-}
-
-
-variable "volume-size" {
-  type    = "string"
-  default = "8"
-}
-
-
-#App
-variable "ec2-name-pri" {
-  type    = "string"
-  default = "app-server"
-}
-
 variable "key-name-pri" {
   type    = "string"
   default = "internal-base-template"
 }
-
-# Route Table Association to NAT
-variable "destinationRoute" {
-  type    = "string"
-  default = "0.0.0.0/0"
-}
-
 # Load Balancers
+
 variable "elb-name" {
   type    = "string"
   default = "sample-elb"
@@ -138,10 +91,17 @@ variable "tg-target-type" {
   default = "instance"
 }
 
+variable "tg-deregister" {
+  type = "string"
+
+  # monitor for change
+  default = "400"
+}
+
 # S3
 variable "bucket-name" {
   type    = "string"
-  default = "load-balancer-logs-bucket"
+  default = "sample-load-balancer-logs-bucket"
 }
 
 variable "acl" {

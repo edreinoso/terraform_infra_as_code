@@ -16,5 +16,5 @@ variable "sg-name-elb" {
 
 variable "ips" {
   type    = "string"
-  default = "71.113.186.65/32"
+  default = "" # your IP addresses that you want to provide access to your infrastructure
 }

@@ -26,11 +26,25 @@ module "web-server" {
   public-ip          = "${var.public-ip-association-false}"
   sourceCheck        = "${var.sourceCheck-enable}"
   security-group-ids = "${split(",", aws_security_group.web-sg.id)}"
-  user-data          = "${file("build.sh")}"
+  user-data          = "${file("http.sh")}"
+}
+
+# web server in a private subnet
+module "app-server" {
+  source             = "../modules/compute/ec2"
+  ami                = "${var.ami}"
+  instance-type      = "${var.instance-type}"
+  subnet-ids         = "${element(module.pri_subnet_1.subnet-id, 2)}"
+  ec2-name           = "${var.ec2-name-app}"
+  template           = "${var.template}"
+  key-name           = "${var.key-name-pri}"
+  public-ip          = "${var.public-ip-association-false}"
+  sourceCheck        = "${var.sourceCheck-enable}"
+  security-group-ids = "${split(",", aws_security_group.app-sg.id)}"
+  user-data          = "${file("php.sh")}"
 }
 
 ## ELB ##
-
 module "elb" {
   source         = "../modules/compute/load-balancer/elb"
   elb-name       = "${var.elb-name}"

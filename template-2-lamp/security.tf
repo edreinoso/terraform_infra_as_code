@@ -106,6 +106,36 @@ resource "aws_security_group_rule" "web-sg-rule-egress" {
   security_group_id = "${aws_security_group.web-sg.id}"
 }
 
+# APP Server SG
+resource "aws_security_group" "app-sg" {
+  name        = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+  description = "SSH security group for ${terraform.workspace} environment"
+  vpc_id      = "${module.new-vpc.vpc-id}"
+
+  tags = {
+    Name     = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+    Template = "${var.template}"
+  }
+}
+
+resource "aws_security_group_rule" "app-sg-rule-01" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.nat-sg.id}"
+  security_group_id        = "${aws_security_group.app-sg.id}"
+}
+
+resource "aws_security_group_rule" "app-sg-rule-egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.app-sg.id}"
+}
+
 ## DATABASE PRIVATE SG
 resource "aws_security_group" "db-pri-sg" {
   name        = "${var.sg-name-db-pri}-${terraform.workspace}-mysql"
@@ -133,6 +163,15 @@ resource "aws_security_group_rule" "db-pri-sg-rule-02" {
   to_port                  = 3306
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.nat-sg.id}"
+  security_group_id        = "${aws_security_group.db-pri-sg.id}"
+}
+
+resource "aws_security_group_rule" "db-pri-sg-rule-03" {
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.app-sg.id}"
   security_group_id        = "${aws_security_group.db-pri-sg.id}"
 }
 

@@ -116,5 +116,5 @@ variable "destroy" {
 
 variable "account-id" {
   type    = "string"
-  default = "130193131803"
+  default = "" # your account ID
 }

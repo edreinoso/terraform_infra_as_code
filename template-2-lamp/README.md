@@ -2,9 +2,9 @@ this will include a database
 
 ### Template 2 - LAMP STACK
 
-![architecture-1](https://s3.amazonaws.com/personal-website-assets/Projects/infra-as-code-template-2-lamp.png)
+![architecture-1](https://s3.amazonaws.com/personal-website-assets/Projects/lamp-stack.png)
 
-This template package provides a simple 2 tier architecture that deployes a Network stack and a Compute stack. The former is going deploy a VPC, Subnets and other related networking resources to build the base for the Compute stack. The Compute stack deployes a bastion host, web server, a load balancer with listeners and target groups. This is the layout:
+This template package provides a simple 3 tier architecture that deployes a Network stack, Compute stack, Security stack and a Database stack. This is the layout:
 
 Network Stack:
 - VPC
@@ -29,9 +29,10 @@ Compute Stack:
   - target groups
   - target group attachment
   - listeners
-- 2 Servers
+- 3 Servers
   - NAT bastion host
-  - web server (with build script)
+  - HTTP server (with build script)
+  - PHP server (with build script)
 
 Database Stack:
 - RDS

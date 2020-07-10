@@ -1,11 +1,11 @@
 # NAT SG
 resource "aws_security_group" "nat-sg" {
-  name        = "${var.sg-name-pub}-${terraform.workspace}-ssh"
+  name        = "NAT-${var.sg-name-pub}-${terraform.workspace}"
   description = "SSH security group for ${terraform.workspace} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-pub}-${terraform.workspace}-ssh"
+    Name     = "NAT-${var.sg-name-pub}-${terraform.workspace}"
     Template = "${var.template}"
   }
 }
@@ -44,7 +44,7 @@ resource "aws_security_group" "elb-sg" {
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-elb}-${terraform.workspace}"
+    Name     = "elb-${terraform.workspace}"
     Template = "${var.template}"
   }
 }
@@ -69,12 +69,12 @@ resource "aws_security_group_rule" "elb-sg-rule-egress" {
 
 # Web Server SG
 resource "aws_security_group" "web-sg" {
-  name        = "${var.sg-name-pri}-${terraform.workspace}-ssh"
-  description = "SSH security group for ${terraform.workspace} environment"
+  name        = "web-${var.sg-name-pri}-${terraform.workspace}"
+  description = "WEB security group for ${terraform.workspace} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+    Name     = "web-${var.sg-name-pri}-${terraform.workspace}"
     Template = "${var.template}"
   }
 }
@@ -108,12 +108,12 @@ resource "aws_security_group_rule" "web-sg-rule-egress" {
 
 # APP Server SG
 resource "aws_security_group" "app-sg" {
-  name        = "${var.sg-name-pri}-${terraform.workspace}-ssh"
-  description = "SSH security group for ${terraform.workspace} environment"
+  name        = "app-${var.sg-name-pri}-${terraform.workspace}"
+  description = "APP security group for ${terraform.workspace} environment"
   vpc_id      = "${module.new-vpc.vpc-id}"
 
   tags = {
-    Name     = "${var.sg-name-pri}-${terraform.workspace}-ssh"
+    Name     = "app-${var.sg-name-pri}-${terraform.workspace}"
     Template = "${var.template}"
   }
 }

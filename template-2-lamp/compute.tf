@@ -5,7 +5,7 @@ module "nat-ec2" {
   source             = "../modules/compute/ec2-custom-ami"
   custom-ami         = "${var.custom-ami}"
   instance-type      = "${var.instance-type}"
-  subnet-ids         = "${element(module.pub_subnet_1.subnet-id, 1)}" # variable from code
+  subnet-ids         = "${element(module.pub_subnet_2.subnet-id, 1)}" # variable from code
   ec2-name           = "${var.ec2-name-pub-nat}"
   template           = "${var.template}"
   public-ip          = "${var.public-ip-association-true}"
@@ -15,7 +15,7 @@ module "nat-ec2" {
 }
 
 # web server in a private subnet
-module "web-server" {
+module "http-server" {
   source             = "../modules/compute/ec2"
   ami                = "${var.ami}"
   instance-type      = "${var.instance-type}"
@@ -30,7 +30,7 @@ module "web-server" {
 }
 
 # web server in a private subnet
-module "app-server" {
+module "php-server" {
   source             = "../modules/compute/ec2"
   ami                = "${var.ami}"
   instance-type      = "${var.instance-type}"

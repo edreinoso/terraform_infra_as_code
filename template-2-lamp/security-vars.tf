@@ -9,11 +9,6 @@ variable "sg-name-pri" {
   default = "pri"
 }
 
-variable "sg-name-elb" {
-  type    = "string"
-  default = "elb"
-}
-
 variable "sg-name-db-pri" {
   type    = "string"
   default = "database-sg-private"
@@ -21,5 +16,5 @@ variable "sg-name-db-pri" {
 
 variable "ips" {
   type    = "string"
-  default = "71.113.186.65/32"
+  default = "" # your IP addresses that you want to provide access to your infrastructure
 }

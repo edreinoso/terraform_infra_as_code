@@ -30,18 +30,18 @@ variable "rds-name" {
 
 variable "username" {
   type    = "string"
-  default = "edreinoso"
+  default = ""
 }
 
 # password should be opmitted 
 variable "password" {
   type    = "string"
-  default = "VivaV3n3zuela."
+  default = ""
 }
 
 variable "db-name" {
   type    = "string"
-  default = "LAMP"
+  default = ""
 }
 
 variable "publicly-accessible" {

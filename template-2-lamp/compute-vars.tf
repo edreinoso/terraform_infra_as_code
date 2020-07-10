@@ -45,6 +45,11 @@ variable "ec2-name-pri-web" {
   default = "web-server"
 }
 
+variable "ec2-name-app" {
+  type    = "string"
+  default = "web-server"
+}
+
 variable "key-name-pub" {
   type    = "string"
   default = "base-template"

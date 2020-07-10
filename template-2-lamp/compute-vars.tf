@@ -2,12 +2,12 @@
 #Web | NAT
 variable "ami" {
   type    = "string"
-  default = "ami-0b898040803850657"
+  default = ""
 }
 
 variable "custom-ami" {
   type    = "string"
-  default = "nat-ami-5-11"
+  default = ""
 }
 
 variable "instance-type" {

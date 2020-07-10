@@ -33,7 +33,6 @@ variable "username" {
   default = ""
 }
 
-# password should be opmitted 
 variable "password" {
   type    = "string"
   default = ""
@@ -59,11 +58,6 @@ variable "db-port" {
   default = "3306"
 }
 
-variable "route53-zone-id" {
-  type    = "string"
-  default = "Z1AJ8ZWN9ZA2LW"
-}
-
 variable "skip-final-snapshot" {
   type    = "string"
   default = "false"
@@ -77,9 +71,4 @@ variable "snapshot-identifier" {
 variable "final-snapshot" {
   type    = "string"
   default = "terraform-snapshot-template-2-prod"
-}
-
-variable "recordName" {
-  type    = "string"
-  default = "proddbconnection"
 }

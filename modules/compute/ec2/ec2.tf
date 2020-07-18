@@ -14,9 +14,12 @@ resource "aws_instance" "ec2" {
 
 
   tags = {
-    Name        = "${var.ec2-name}"
-    Environment = "${terraform.workspace}"
-    Template    = "${var.template}"
+    Name          = "${var.ec2-name}"
+    Environment   = "${terraform.workspace}"
+    Template      = "${var.template}"
+    Application   = "${var.application}"
+    Purpose       = "${var.purpose}"
+    Creation_Date = "${var.created-on}"
   }
 
   # ebs_block_device {

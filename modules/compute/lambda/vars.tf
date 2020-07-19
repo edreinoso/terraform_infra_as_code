@@ -23,6 +23,11 @@ variable "runtime" {
   default = ""
 }
 
+variable "template" {
+  type    = "string"
+  default = ""
+}
+
 variable "purpose" {
   type    = "string"
   default = ""

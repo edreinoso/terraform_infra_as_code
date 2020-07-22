@@ -47,3 +47,13 @@ variable "environment" {
   type    = "string"
   default = ""
 }
+
+variable "timeout" {
+  type    = "string"
+  default = ""
+}
+
+variable "memory-size" {
+  type    = "string"
+  default = ""
+}

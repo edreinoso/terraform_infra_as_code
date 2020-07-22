@@ -53,11 +53,6 @@ variable "instance-role" {
   default = ""
 }
 
-variable "volume-size" {
-  type    = "string"
-  default = ""
-}
-
 variable "purpose" {
   type    = "string"
   default = ""
@@ -72,3 +67,23 @@ variable "created-on" {
   type    = "string"
   default = ""
 }
+
+variable "ebs_block_device" {
+  description = "Additional EBS block devices to attach to the instance"
+  type        = list(map(string))
+  default     = []
+}
+
+# variable "device-name" {
+#   type = "string"
+#   default = ""
+#   # type = "list"
+#   # default = []
+# }
+
+# variable "volume-size" {
+#   type    = "string"
+#   default = ""
+#   # type    = "list"
+#   # default = []
+# }

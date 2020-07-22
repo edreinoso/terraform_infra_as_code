@@ -4,8 +4,9 @@ resource "aws_lambda_function" "lambda" {
   role             = "${var.role}"
   handler          = "${var.handler}"
   source_code_hash = "${filebase64sha256("${var.file-name}")}"
-  #   source_code_hash = "${base64sha256(file("${var.file-name}"))}"
-  runtime = "${var.runtime}"
+  runtime          = "${var.runtime}"
+  timeout          = "${var.timeout}"
+  memory_size      = "${var.memory-size}"
 
   tags = {
     Name          = "${var.function-name}"

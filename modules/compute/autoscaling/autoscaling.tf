@@ -6,7 +6,7 @@ resource "aws_autoscaling_group" "autoscaling" {
     compact(
       [
         coalesce(var.asg_name, var.name),
-        var.recreate_asg_when_lc_changes ? element(concat(random_pet.asg_name.*.id, [""]), 0) : "",
+        # var.recreate_asg_when_lc_changes ? element(concat(random_pet.asg_name.*.id, [""]), 0) : "",
       ],
     ),
   )}-"
@@ -32,8 +32,8 @@ resource "aws_autoscaling_group" "autoscaling" {
   metrics_granularity       = var.metrics_granularity
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
   protect_from_scale_in     = var.protect_from_scale_in
-  service_linked_role_arn   = var.service_linked_role_arn
   max_instance_lifetime     = var.max_instance_lifetime
+  # service_linked_role_arn   = var.service_linked_role_arn
 
   tags = concat(
     [
@@ -44,7 +44,7 @@ resource "aws_autoscaling_group" "autoscaling" {
       },
     ],
     var.tags,
-    local.tags_asg_format,
+    # local.tags_asg_format,
   )
 
   lifecycle {

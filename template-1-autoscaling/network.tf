@@ -94,12 +94,12 @@ module "rtToPriSubnet2" {
   subnet-cidrs = "${split(",", lookup(var.az2PrivateSubnetCidr, terraform.workspace))}"
 }
 
-module "privateRoutes" {
-  source       = "../modules/network/route-tables/route/"
-  routeTableId = "${module.privateRT.rt-id}"
-  destination  = "${var.destinationRoute}"
-  instanceId   = "${element(module.nat-ec2.ec2-id, 1)}" # need to test whether this is going to work
-}
+# module "privateRoutes" {
+#   source       = "../modules/network/route-tables/route/"
+#   routeTableId = "${module.privateRT.rt-id}"
+#   destination  = "${var.destinationRoute}"
+#   instanceId   = "${element(module.nat-ec2.ec2-id, 1)}" # need to test whether this is going to work
+# }
 
 module "publicRT" {
   source   = "../modules/network/route-tables/rt"

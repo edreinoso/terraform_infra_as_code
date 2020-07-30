@@ -225,16 +225,17 @@ variable "metrics_granularity" {
 variable "enabled_metrics" {
   description = "A list of metrics to collect. The allowed values are GroupMinSize, GroupMaxSize, GroupDesiredCapacity, GroupInServiceInstances, GroupPendingInstances, GroupStandbyInstances, GroupTerminatingInstances, GroupTotalInstances"
   type        = list(string)
-  default = [
-    "GroupMinSize",
-    "GroupMaxSize",
-    "GroupDesiredCapacity",
-    "GroupInServiceInstances",
-    "GroupPendingInstances",
-    "GroupStandbyInstances",
-    "GroupTerminatingInstances",
-    "GroupTotalInstances",
-  ]
+  default = []
+  # default = [
+  #   "GroupMinSize",
+  #   "GroupMaxSize",
+  #   "GroupDesiredCapacity",
+  #   "GroupInServiceInstances",
+  #   "GroupPendingInstances",
+  #   "GroupStandbyInstances",
+  #   "GroupTerminatingInstances",
+  #   "GroupTotalInstances",
+  # ]
 }
 
 variable "wait_for_capacity_timeout" {
@@ -271,4 +272,10 @@ variable "max_instance_lifetime" {
   description = "The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds."
   type        = number
   default     = 0
+}
+
+variable "create_asg_with_initial_lifecycle_hook" {
+  description = "Create an ASG with initial lifecycle hook"
+  type        = bool
+  default     = false
 }

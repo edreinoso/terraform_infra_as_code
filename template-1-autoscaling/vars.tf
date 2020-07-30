@@ -7,7 +7,7 @@ variable "template" {
   default = "template-1-autoscaling"
 }
 
-variable "created_on" {
+variable "created-on" {
   type    = "string"
   default = "July_28_2020"
 }

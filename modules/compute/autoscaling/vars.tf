@@ -279,3 +279,6 @@ variable "create_asg_with_initial_lifecycle_hook" {
   type        = bool
   default     = false
 }
+
+### Autoscaling group policy ###
+

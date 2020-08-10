@@ -37,7 +37,7 @@ module "example" {
   health_check_type         = "${var.health-check}"
   desired_capacity          = 1
   min_size                  = 1
-  max_size                  = 2
+  max_size                  = 4
   wait_for_capacity_timeout = 0
   enabled_metrics           = "${var.enabled_metrics}"
   # service_linked_role_arn   = "${var.role}"
@@ -76,56 +76,71 @@ module "example" {
   ]
 }
 
-# autoscaling policy to measure Cpu metrics to scale up by 1 server
-resource "aws_autoscaling_policy" "example-cpu-policy-scaleup" {
-  name                   = "example-cpu-policy-scaleup"
-  autoscaling_group_name = "${module.example.this_autoscaling_group_name}"
-  adjustment_type        = "ChangeInCapacity"
-  scaling_adjustment     = "1"
-  cooldown               = "60"
-  policy_type            = "SimpleScaling"
-}
+resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
+  name                      = "testing-target-tracking-policy"
+  policy_type               = "TargetTrackingScaling"
+  autoscaling_group_name    = "${module.example.this_autoscaling_group_name}"
+  estimated_instance_warmup = 200
 
-resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scaleup" {
-  alarm_name          = "example-cpu-alarm-scaleup"
-  alarm_description   = "example-cpu-alarm-scaleup"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "60"
-  statistic           = "Average"
-  threshold           = "30"
-  dimensions = {
-    "AutoScalingGroupName" = "${module.example.this_autoscaling_group_name}"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = "60"
   }
-  actions_enabled = true
-  alarm_actions   = ["${aws_autoscaling_policy.example-cpu-policy-scaleup.arn}"]
 }
 
-# autoscaling measure to scale down by 1 server
-resource "aws_autoscaling_policy" "example-cpu-policy-scaledown" {
-  name                   = "example-cpu-policy-scaledown"
-  autoscaling_group_name = "${module.example.this_autoscaling_group_name}" # "${module.new-vpc.vpc-id}"
-  adjustment_type        = "ChangeInCapacity"
-  scaling_adjustment     = "-1"
-  cooldown               = "60"
-  policy_type            = "SimpleScaling"
-}
+# # autoscaling policy to measure Cpu metrics to scale up by 1 server
+# resource "aws_autoscaling_policy" "example-cpu-policy-scaleup" {
+#   name                   = "example-cpu-policy-scaleup"
+#   autoscaling_group_name = "${module.example.this_autoscaling_group_name}"
+#   adjustment_type        = "ChangeInCapacity"
+#   scaling_adjustment     = "1"
+#   cooldown               = "60"
+#   policy_type            = "SimpleScaling"
+# }
 
-resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scaledown" {
-  alarm_name          = "example-cpu-alarm-scaledown"
-  alarm_description   = "example-cpu-alarm-scaledown"
-  comparison_operator = "LessThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "60"
-  statistic           = "Average"
-  threshold           = "5"
-  dimensions = {
-    "AutoScalingGroupName" = "${module.example.this_autoscaling_group_name}" # need to get this value
-  }
-  actions_enabled = true
-  alarm_actions   = ["${aws_autoscaling_policy.example-cpu-policy-scaledown.arn}"]
-}
+# resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scaleup" {
+#   alarm_name          = "example-cpu-alarm-scaleup"
+#   alarm_description   = "example-cpu-alarm-scaleup"
+#   comparison_operator = "GreaterThanOrEqualToThreshold"
+#   evaluation_periods  = "2"
+#   metric_name         = "CPUUtilization"
+#   namespace           = "AWS/EC2"
+#   period              = "60"
+#   statistic           = "Average"
+#   threshold           = "30"
+#   dimensions = {
+#     "AutoScalingGroupName" = "${module.example.this_autoscaling_group_name}"
+#   }
+#   actions_enabled = true
+#   alarm_actions   = ["${aws_autoscaling_policy.example-cpu-policy-scaleup.arn}"]
+# }
+
+# # autoscaling measure to scale down by 1 server
+# resource "aws_autoscaling_policy" "example-cpu-policy-scaledown" {
+#   name                   = "example-cpu-policy-scaledown"
+#   autoscaling_group_name = "${module.example.this_autoscaling_group_name}" # "${module.new-vpc.vpc-id}"
+#   adjustment_type        = "ChangeInCapacity"
+#   scaling_adjustment     = "-1"
+#   cooldown               = "60"
+#   policy_type            = "SimpleScaling"
+# }
+
+# resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scaledown" {
+#   alarm_name          = "example-cpu-alarm-scaledown"
+#   alarm_description   = "example-cpu-alarm-scaledown"
+#   comparison_operator = "LessThanOrEqualToThreshold"
+#   evaluation_periods  = "2"
+#   metric_name         = "CPUUtilization"
+#   namespace           = "AWS/EC2"
+#   period              = "60"
+#   statistic           = "Average"
+#   threshold           = "5"
+#   dimensions = {
+#     "AutoScalingGroupName" = "${module.example.this_autoscaling_group_name}" # need to get this value
+#   }
+#   actions_enabled = true
+#   alarm_actions   = ["${aws_autoscaling_policy.example-cpu-policy-scaledown.arn}"]
+# }

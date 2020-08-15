@@ -1,10 +1,7 @@
 #VPC Components
 variable "vpc-name" {
-  type = "map"
-
-  default = {
-    dev = "sample-vpc-dev"
-  }
+  type = "string"
+  default = "terraform-deployment-vpc"
 }
 
 variable "vpc-cidr" {

@@ -2,10 +2,14 @@
 module "new-vpc" {
   source              = "../modules/network/vpc"
   vpc-cidr            = "${lookup(var.vpc-cidr, terraform.workspace)}"
-  vpc-name            = "${lookup(var.vpc-name, terraform.workspace)}"
+  vpc-name            = "${var.vpc-name}-${terraform.workspace}"
   template            = "${var.template}"
   enable-dns-support  = "${var.vpc-dns-support}"
   enable-dns-hostname = "${var.vpc-dns-hostname}"
+  environment         = "${terraform.workspace}"
+  application         = "${var.application}"
+  purpose             = "${var.purpose}"
+  created-on          = "${var.created-on}"
 }
 
 ### SUBNETS ###

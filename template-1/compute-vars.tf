@@ -54,6 +54,7 @@ variable "key-name-pri" {
   type    = "string"
   default = "internal-base-template"
 }
+
 # Load Balancers
 
 variable "elb-name" {

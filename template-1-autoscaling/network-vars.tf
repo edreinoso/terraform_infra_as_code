@@ -1,6 +1,6 @@
 #VPC Components
 variable "vpc-name" {
-  type = "string"
+  type    = "string"
   default = "terraform-deployment-vpc"
 }
 
@@ -20,6 +20,37 @@ variable "vpc-dns-hostname" {
 variable "vpc-dns-support" {
   type    = "string"
   default = true
+}
+
+#Flow logs
+variable "flow-logs-name" {
+  type    = "string"
+  default = "template-1-autoscaling-flow-logs"
+}
+
+variable "log-destination" {
+  type    = "string"
+  default = "/aws/log-groups" #for now this would be example
+}
+
+variable "traffic-type" {
+  type    = "string"
+  default = "ALL"
+}
+
+variable "role-policy-name" {
+  type    = "string"
+  default = "flow-logs-policy"
+}
+
+variable "role-name" {
+  type    = "string"
+  default = "flow-logs-roles"
+}
+
+variable "max-aggregation-interval" {
+  type    = "string"
+  default = "600"
 }
 
 #Internet gateway

@@ -12,8 +12,11 @@ resource "aws_lb" "elb" {
   }
 
   tags = {
-    Name        = "${var.elb-name}"
-    Environment = "${terraform.workspace}"
-    Template    = "${var.template}"
+    Name          = "${var.elb-name}"
+    Environment   = "${var.environment}"
+    Template      = "${var.template}"
+    Application   = "${var.application}"
+    Creation_Date = "${var.created-on}"
+    Purpose       = "${var.purpose}"
   }
 }

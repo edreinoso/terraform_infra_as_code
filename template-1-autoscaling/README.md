@@ -1,6 +1,6 @@
 ### Template 1 - Deploy ALL
 
-![architecture-1](https://s3.amazonaws.com/personal-website-assets/Projects/template-1.png)
+![architecture-1](https://s3.amazonaws.com/personal-website-assets104410-dev/projects/template-1-autoscaling.png)
 
 This template package provides a simple 2 tier architecture that deployes a Network stack, Compute stack and a Security stack. This is the layout:
 

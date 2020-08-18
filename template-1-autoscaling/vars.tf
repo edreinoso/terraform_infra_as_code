@@ -4,7 +4,7 @@ variable "AWS_REGIONS" {
 
 variable "template" {
   type    = "string"
-  default = "terraform_infrastructure_as_code"
+  default = "infrastructure-as-code"
 }
 
 variable "created-on" {
@@ -19,5 +19,5 @@ variable "application" {
 
 variable "purpose" {
   type    = "string"
-  default = "testing different autoscaling modules"
+  default = "testing_autoscaling_modes"
 }

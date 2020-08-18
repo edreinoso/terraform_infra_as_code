@@ -1,4 +1,45 @@
-### NAT ###
+### NACLS ###
+
+module "nacls_vpc" {
+  source      = "../modules/security/nacls/nacl"
+  vpc-id      = "${module.new-vpc.vpc-id}"
+  # subnet-ids = "${module.pri_subnet_1.subnet-id}" # this can get very complicated
+  #Tags
+  environment = "${terraform.workspace}"
+  application = "${var.application}"
+  purpose = "${var.purpose}"
+  name = "nacls"
+  created-on = "${var.created-on}"
+  template = "${var.template}"
+}
+
+module "nacls_deny_rules_egress" {
+  source      = "../modules/security/nacls/rules"
+  nacls-id = "${module.nacls_vpc.id}"
+  egress = "${split(",", var.egress)}"
+  protocol = "${var.protocol}"
+  cidr-block = "${split(",", var.cidr)}"
+  rule-no = "${split(",", var.rule-no)}"
+  action = "${split(",", var.action)}"
+  from-port = "${var.from-port}"
+  to-port = "${var.to-port}"
+}
+
+module "nacls_deny_rules_ingress" {
+  source      = "../modules/security/nacls/rules"
+  nacls-id = "${module.nacls_vpc.id}"
+  egress = "${split(",", var.ingress)}"
+  protocol = "${var.protocol}"
+  cidr-block = "${split(",", var.cidr)}"
+  rule-no = "${split(",", var.rule-no)}"
+  action = "${split(",", var.action)}"
+  from-port = "${var.from-port}"
+  to-port = "${var.to-port}"
+}
+
+### SECURITY GROUPS ###
+
+## Nat ##
 
 resource "aws_security_group" "nat-sg" {
   name        = "${var.sg-name-pub}-${terraform.workspace}-public"
@@ -42,7 +83,7 @@ resource "aws_security_group_rule" "nat-sg-rule-egress" {
   security_group_id = "${aws_security_group.nat-sg.id}"
 }
 
-### ELB ###
+## Elb ##
 
 resource "aws_security_group" "elb-sg" {
   name        = "elb-${terraform.workspace}"
@@ -77,7 +118,7 @@ resource "aws_security_group_rule" "elb-sg-rule-egress" {
   security_group_id = "${aws_security_group.elb-sg.id}"
 }
 
-### WEB ###
+## Web ##
 
 resource "aws_security_group" "web-sg" {
   name        = "${var.sg-name-pri}-${terraform.workspace}-web"

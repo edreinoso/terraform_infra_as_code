@@ -44,7 +44,6 @@ resource "aws_autoscaling_group" "autoscaling" {
       },
     ],
     var.tags,
-    # local.tags_asg_format,
   )
 
   lifecycle {

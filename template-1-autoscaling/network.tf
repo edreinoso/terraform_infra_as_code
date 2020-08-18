@@ -12,8 +12,24 @@ module "new-vpc" {
   created-on          = "${var.created-on}"
 }
 
-### SUBNETS ###
+module "vpc-flow-logs" {
+  source                   = "../modules/network/flow-log"
+  vpc-id                   = "${module.new-vpc.vpc-id}"
+  traffic-type             = "${var.traffic-type}"
+  log-destination          = "${var.log-destination}"
+  role-policy-name         = "${var.role-policy-name}"
+  role-name                = "${var.role-name}"
+  max-aggregation-interval = "${var.max-aggregation-interval}"
+  #Tags
+  environment = "${terraform.workspace}"
+  application = "${var.application}"
+  purpose = "${var.purpose}"
+  name = "flow-logs"
+  created-on = "${var.created-on}"
+  template = "${var.template}"
+}
 
+### SUBNETS ###
 # # Public subnet where the potential web server instances/bastion hosts will be created
 # AZ 1
 module "pub_subnet_1" {

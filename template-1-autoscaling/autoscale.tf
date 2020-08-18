@@ -35,9 +35,10 @@ module "autoscaling_example" {
   asg_name                  = "${var.autoscaling-name}-${terraform.workspace}"
   vpc_zone_identifier       = ["${element(module.pub_subnet_2.subnet-id, 1)}", "${element(module.pub_subnet_1.subnet-id, 1)}"]
   health_check_type         = "${var.health-check}"
+  target_group_arns         = ["${module.target-group.target-arn}"]
   desired_capacity          = 1
   min_size                  = 1
-  max_size                  = 4
+  max_size                  = 3
   wait_for_capacity_timeout = 0
   enabled_metrics           = "${var.enabled_metrics}"
   # service_linked_role_arn   = "${var.role}"
@@ -77,80 +78,63 @@ module "autoscaling_example" {
 }
 
 ### TRACKING POLICY ###
+resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
+  name                      = "testing-target-tracking-policy"
+  policy_type               = "TargetTrackingScaling"
+  autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
+  estimated_instance_warmup = 200
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = "60"
+  }
+}
 
-# resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
-#   name                      = "testing-target-tracking-policy"
-#   policy_type               = "TargetTrackingScaling"
-#   autoscaling_group_name    = "${module.example.this_autoscaling_group_name}"
-#   estimated_instance_warmup = 200
-#   target_tracking_configuration {
-#     predefined_metric_specification {
-#       predefined_metric_type = "ASGAverageCPUUtilization"
-#     }
-#     target_value = "60"
+### STEP POLICY ###
+# resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_out" {
+#   name                      = "testing-step-policy-scale_out"
+#   autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
+#   adjustment_type           = "ChangeInCapacity"
+#   policy_type               = "StepScaling"
+#   step_adjustment {
+#     scaling_adjustment          = 1
+#     metric_interval_lower_bound = 0
+#     metric_interval_upper_bound = 15
+#   }
+#   step_adjustment {
+#     scaling_adjustment          = 2
+#     metric_interval_lower_bound = 15
+#     metric_interval_upper_bound = 25
+#   }
+#   step_adjustment {
+#     scaling_adjustment          = 3
+#     metric_interval_lower_bound = 25
 #   }
 # }
 
-### STEP POLICY ###
-
-resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_out" {
-  name                      = "testing-step-policy-scale_out"
-  autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
-  adjustment_type           = "ChangeInCapacity"
-  policy_type               = "StepScaling"
-  # step_adjustment {
-  #   scaling_adjustment          = -3
-  #   metric_interval_lower_bound = -25
-  # }
-  # step_adjustment {
-  #   scaling_adjustment          = -2
-  #   metric_interval_lower_bound = -25
-  #   metric_interval_upper_bound = -15
-  # }
-  # step_adjustment {
-  #   scaling_adjustment          = -1
-  #   metric_interval_lower_bound = -15
-  #   metric_interval_upper_bound = 0
-  # }
-  step_adjustment {
-    scaling_adjustment          = 1
-    metric_interval_lower_bound = 0
-    metric_interval_upper_bound = 15
-  }
-  step_adjustment {
-    scaling_adjustment          = 2
-    metric_interval_lower_bound = 15
-    metric_interval_upper_bound = 25
-  }
-  step_adjustment {
-    scaling_adjustment          = 3
-    metric_interval_lower_bound = 25
-  }
-}
-
-resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_in" {
-  name                      = "testing-step-policy-scale_in"
-  autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
-  adjustment_type           = "ChangeInCapacity"
-  policy_type               = "StepScaling"
-  step_adjustment {
-    scaling_adjustment          = -1
-    metric_interval_lower_bound = -5
-    metric_interval_upper_bound = 0
-  }
-  step_adjustment {
-    scaling_adjustment          = -2
-    metric_interval_lower_bound = -7.5
-    metric_interval_upper_bound = -5
-  }
-  step_adjustment {
-    scaling_adjustment          = -3
-    metric_interval_upper_bound = -7.5
-  }
-}
+# resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_in" {
+#   name                      = "testing-step-policy-scale_in"
+#   autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
+#   adjustment_type           = "ChangeInCapacity"
+#   policy_type               = "StepScaling"
+#   step_adjustment {
+#     scaling_adjustment          = -1
+#     metric_interval_lower_bound = -5
+#     metric_interval_upper_bound = 0
+#   }
+#   step_adjustment {
+#     scaling_adjustment          = -2
+#     metric_interval_lower_bound = -7.5
+#     metric_interval_upper_bound = -5
+#   }
+#   step_adjustment {
+#     scaling_adjustment          = -3
+#     metric_interval_upper_bound = -7.5
+#   }
+# }
 
 ### SIMPLE SCALING ###
-
 # # autoscaling policy to measure Cpu metrics to scale up by 1 server
 # resource "aws_autoscaling_policy" "web_cluster_simple_policy_scale_out" {
 #   name                   = "example-cpu-policy-scaleup"
@@ -173,37 +157,36 @@ resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_in" {
 
 ## CLOUDWATCH ##
 # This is necessary for step and simple scaling policies
+# resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scale_out" {
+#   alarm_name          = "example-cpu-alarm-scaleup"
+#   alarm_description   = "example-cpu-alarm-scaleup"
+#   comparison_operator = "GreaterThanOrEqualToThreshold"
+#   evaluation_periods  = "2"
+#   metric_name         = "CPUUtilization"
+#   namespace           = "AWS/EC2"
+#   period              = "60"
+#   statistic           = "Average"
+#   threshold           = "70"
+#   dimensions = {
+#     "AutoScalingGroupName" = "${module.autoscaling_example.this_autoscaling_group_name}"
+#   }
+#   actions_enabled = true
+#   alarm_actions   = ["${aws_autoscaling_policy.web_cluster_step_policy_scale_out.arn}"]
+# }
 
-resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scale_out" {
-  alarm_name          = "example-cpu-alarm-scaleup"
-  alarm_description   = "example-cpu-alarm-scaleup"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "60"
-  statistic           = "Average"
-  threshold           = "70"
-  dimensions = {
-    "AutoScalingGroupName" = "${module.autoscaling_example.this_autoscaling_group_name}"
-  }
-  actions_enabled = true
-  alarm_actions   = ["${aws_autoscaling_policy.web_cluster_step_policy_scale_out.arn}"]
-}
-
-resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scale_in" {
-  alarm_name          = "example-cpu-alarm-scaledown"
-  alarm_description   = "example-cpu-alarm-scaledown"
-  comparison_operator = "LessThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "60"
-  statistic           = "Average"
-  threshold           = "10"
-  dimensions = {
-    "AutoScalingGroupName" = "${module.autoscaling_example.this_autoscaling_group_name}" # need to get this value
-  }
-  actions_enabled = true
-  alarm_actions   = ["${aws_autoscaling_policy.web_cluster_step_policy_scale_in.arn}"]
-}
+# resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scale_in" {
+#   alarm_name          = "example-cpu-alarm-scaledown"
+#   alarm_description   = "example-cpu-alarm-scaledown"
+#   comparison_operator = "LessThanOrEqualToThreshold"
+#   evaluation_periods  = "2"
+#   metric_name         = "CPUUtilization"
+#   namespace           = "AWS/EC2"
+#   period              = "60"
+#   statistic           = "Average"
+#   threshold           = "10"
+#   dimensions = {
+#     "AutoScalingGroupName" = "${module.autoscaling_example.this_autoscaling_group_name}" # need to get this value
+#   }
+#   actions_enabled = true
+#   alarm_actions   = ["${aws_autoscaling_policy.web_cluster_step_policy_scale_in.arn}"]
+# }

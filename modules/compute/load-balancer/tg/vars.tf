@@ -4,6 +4,18 @@ variable "elb-tg-name" {
   default = ""
 }
 
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
+}
+
+variable "target_group_tags" {
+  description = "A map of tags to add to all target groups"
+  type        = map(string)
+  default     = {}
+}
+
 variable "vpc-id" {
   type    = "string"
   default = ""

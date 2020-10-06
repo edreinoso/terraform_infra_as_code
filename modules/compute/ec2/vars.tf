@@ -87,3 +87,8 @@ variable "ebs_block_device" {
 #   # type    = "list"
 #   # default = []
 # }
+
+variable "tags" {
+  type    = "map"
+  default = {}
+}

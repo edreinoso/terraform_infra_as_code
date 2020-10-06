@@ -7,20 +7,16 @@ resource "aws_db_instance" "rds" {
   instance_class            = "${var.instance-class}"
   identifier                = "${var.db-identifier}"
   username                  = "${var.username}"
-  password                  = "${var.password}" # need to have a secure way of keeping this
+  password                  = "${var.password}"
   parameter_group_name      = "${var.parameter-group-name}"
   db_subnet_group_name      = "${var.db-subnet-group}"
   publicly_accessible       = "${var.publicly-accessible}"
+  maintenance_window        = "${var.maintenance-windows}"
   availability_zone         = "${var.availability-zone}"
   vpc_security_group_ids    = "${var.vpc-security-group-ids}"
   port                      = "${var.db-port}"
   final_snapshot_identifier = "${var.final-snapshot}"
   snapshot_identifier       = "${var.snapshot-identifier}"
   skip_final_snapshot       = "${var.skip-final}"
-
-  tags = {
-    Name        = "${var.rds-name}"
-    Environment = "${terraform.workspace}"
-    Template    = "${var.template}"
-  }
+  tags                      = var.tags
 }

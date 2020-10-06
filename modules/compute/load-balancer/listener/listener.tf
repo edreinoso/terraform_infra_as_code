@@ -5,7 +5,7 @@ resource "aws_lb_listener" "listener" {
   protocol          = "${var.listener-protocol}"
   ssl_policy        = "${var.ssl-policy}"
   certificate_arn   = "${var.certificate-arn}"
-
+  
   default_action {
     target_group_arn = "${var.target-group-arn}"
     type             = "forward"

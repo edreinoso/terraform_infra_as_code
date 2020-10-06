@@ -11,12 +11,17 @@ resource "aws_lb" "elb" {
     enabled = true
   }
 
-  tags = {
-    Name          = "${var.elb-name}"
-    Environment   = "${var.environment}"
-    Template      = "${var.template}"
-    Application   = "${var.application}"
-    Creation_Date = "${var.created-on}"
-    Purpose       = "${var.purpose}"
-  }
+  # tags = {
+  #   Name          = "${var.elb-name}"
+  #   Environment   = "${var.environment}"
+  #   Template      = "${var.template}"
+  #   Application   = "${var.application}"
+  #   Creation_Date = "${var.created-on}"
+  #   Purpose       = "${var.purpose}"
+  # }
+
+  tags = merge(
+    var.tags,
+    var.lb_tags,
+  )
 }

@@ -57,3 +57,8 @@ variable "memory-size" {
   type    = "string"
   default = ""
 }
+
+variable "tags" {
+  type    = "map"
+  default = {}
+}

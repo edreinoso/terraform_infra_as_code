@@ -6,6 +6,18 @@ variable "elb-name" {
   # default = []
 }
 
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
+}
+
+variable "lb_tags" {
+  description = "A map of tags to add to load balancer"
+  type        = map(string)
+  default     = {}
+}
+
 variable "elb-type" {
   type    = "string"
   default = ""

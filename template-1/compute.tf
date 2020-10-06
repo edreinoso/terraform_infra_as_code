@@ -1,32 +1,64 @@
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+
+  owners = ["130193131803"]
+
+  filter {
+    name = "name"
+    values = [
+      "NAT_amazon_linux",
+    ]
+  }
+
+  filter {
+    name = "owner-alias"
+    values = [
+      "ed-reinoso",
+    ]
+  }
+}
+
 ## EC2 ##
 
 #this module has to be configured to get the custom AMI for NAT
 module "nat-ec2" {
-  source             = "../modules/compute/ec2-custom-ami"
-  custom-ami         = "${var.custom-ami}"
+  source             = "../modules/compute/ec2"
+  custom-ami         = "${data.aws_ami.amazon_linux.id}"
   instance-type      = "${var.instance-type}"
-  subnet-ids         = "${element(module.pub_subnet_2.subnet-id, 1)}" # variable from code
-  ec2-name           = "${var.ec2-name-pub-nat}"
-  template           = "${var.template}"
   public-ip          = "${var.public-ip-association-true}"
   sourceCheck        = "${var.sourceCheck-disable}"
   key-name           = "${var.key-name-pub}"
-  security-group-ids = "${split(",", aws_security_group.nat-sg.id)}" # variable from code
+  subnet-ids         = "${element(module.pub_subnet_2.subnet-id, 1)}"
+  security-group-ids = "${split(",", aws_security_group.nat-sg.id)}"
+  tags = {
+    Name          = ""
+    Template      = ""
+    Environment   = ""
+    Application   = ""
+    Purpose       = ""
+    Creation_Date = ""
+  }
 }
 
 # web server in a private subnet
 module "web-server" {
   source             = "../modules/compute/ec2"
-  ami                = "${var.ami}"
+  ami                = "${var.web-server-ami}"
   instance-type      = "${var.instance-type}"
-  subnet-ids         = "${element(module.pri_subnet_1.subnet-id, 1)}"
-  ec2-name           = "${var.ec2-name-pri-web}"
-  template           = "${var.template}"
   key-name           = "${var.key-name-pri}"
   public-ip          = "${var.public-ip-association-false}"
   sourceCheck        = "${var.sourceCheck-enable}"
+  subnet-ids         = "${element(module.pri_subnet_1.subnet-id, 1)}"
   security-group-ids = "${split(",", aws_security_group.web-sg.id)}"
   user-data          = "${file("build.sh")}"
+  tags = {
+    Name          = ""
+    Template      = ""
+    Environment   = ""
+    Application   = ""
+    Purpose       = ""
+    Creation_Date = ""
+  }
 }
 
 ## ELB ##
@@ -37,9 +69,9 @@ module "elb" {
   internal-elb   = "${var.internal-elb}"
   elb-type       = "${var.elb-type}"
   security-group = "${split(",", aws_security_group.elb-sg.id)}"
-  subnet-ids     = ["${element(module.pub_subnet_1.subnet-id,1)}","${element(module.pub_subnet_2.subnet-id,1)}"]
-  template    = "${var.template}"
-  bucket-name = "${var.bucket-name}"
+  subnet-ids     = ["${element(module.pub_subnet_1.subnet-id, 1)}", "${element(module.pub_subnet_2.subnet-id, 1)}"]
+  template       = "${var.template}"
+  bucket-name    = "${var.bucket-name}"
 }
 
 module "target-group" {

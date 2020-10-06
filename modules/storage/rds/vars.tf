@@ -58,11 +58,6 @@ variable "rds-name" {
   default = ""
 }
 
-variable "template" {
-  type    = "string"
-  default = ""
-}
-
 variable "db-subnet-group" {
   type    = "string"
   default = ""
@@ -99,6 +94,16 @@ variable "db-name" {
 }
 
 variable "skip-final" {
+  type    = "string"
+  default = ""
+}
+
+variable "tags" {
+  type    = "map"
+  default = {}
+}
+
+variable "maintenance-windows" {
   type    = "string"
   default = ""
 }

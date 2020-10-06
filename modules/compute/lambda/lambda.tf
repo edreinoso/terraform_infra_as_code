@@ -7,13 +7,5 @@ resource "aws_lambda_function" "lambda" {
   runtime          = "${var.runtime}"
   timeout          = "${var.timeout}"
   memory_size      = "${var.memory-size}"
-
-  tags = {
-    Name          = "${var.function-name}"
-    Environment   = "${var.environment}"
-    Template      = "${var.template}"
-    Application   = "${var.application}"
-    Purpose       = "${var.purpose}"
-    Creation_Date = "${var.created-on}"
-  }
+  tags             = var.tags
 }

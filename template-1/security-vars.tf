@@ -1,17 +1,17 @@
 # Security Group
 variable "sg-name-pub" {
   type    = "string"
-  default = "pub"
+  default = ""
 }
 
 variable "sg-name-pri" {
   type    = "string"
-  default = "pri"
+  default = ""
 }
 
 variable "sg-name-elb" {
   type    = "string"
-  default = "elb"
+  default = ""
 }
 
 variable "ips" {

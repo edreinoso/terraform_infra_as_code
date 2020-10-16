@@ -25,6 +25,37 @@ variable "vpc-dns-support" {
   default = true
 }
 
+#Flow logs
+variable "flow-logs-name" {
+  type    = "string"
+  default = ""
+}
+
+variable "log-destination" {
+  type    = "string"
+  default = "/aws/log-groups" #for now this would be example
+}
+
+variable "traffic-type" {
+  type    = "string"
+  default = "ALL"
+}
+
+variable "role-policy-name" {
+  type    = "string"
+  default = "flow-logs-policy"
+}
+
+variable "role-name" {
+  type    = "string"
+  default = "flow-logs-roles"
+}
+
+variable "max-aggregation-interval" {
+  type    = "string"
+  default = "600"
+}
+
 #Internet gateway
 variable "igw-name" {
   type    = "string"

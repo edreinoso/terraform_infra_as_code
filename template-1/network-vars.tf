@@ -1,177 +1,158 @@
-#VPC Components
-variable "vpc-name" {
-  type = "map"
-
-  default = {
-    dev = "sample-vpc-dev"
+## VPC ##
+  variable "vpc-name" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "vpc-cidr" {
-  type = "map"
-
-  default = {
-    dev = "172.168.0.0/24"
+  variable "vpc-cidr" {
+    type = "map"
+    default = {
+      dev = ""
+      #dev = "172.168.0.0/24"
+    }
   }
-}
 
-variable "vpc-dns-hostname" {
-  type    = "string"
-  default = true
-}
-
-variable "vpc-dns-support" {
-  type    = "string"
-  default = true
-}
-
-#Flow logs
-variable "flow-logs-name" {
-  type    = "string"
-  default = "template-1-autoscaling-flow-logs"
-}
-
-variable "log-destination" {
-  type    = "string"
-  default = "/aws/log-groups" #for now this would be example
-}
-
-variable "traffic-type" {
-  type    = "string"
-  default = "ALL"
-}
-
-variable "role-policy-name" {
-  type    = "string"
-  default = "flow-logs-policy"
-}
-
-variable "role-name" {
-  type    = "string"
-  default = "flow-logs-roles"
-}
-
-variable "max-aggregation-interval" {
-  type    = "string"
-  default = "600"
-}
-
-#Internet gateway
-variable "igw-name" {
-  type    = "string"
-  default = "sample-igw"
-}
-
-#Subnet component
-#Public subnets -- these subnets are in different availability zones
-variable "public-type" {
-  type    = "string"
-  default = "public"
-}
-
-variable "az1PublicSubnetCidr" {
-  type = "map"
-
-  default = {
-    dev = "172.168.0.0/27"
+  variable "vpc-dns-hostname" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "az1PublicSubnetNames" {
-  type = "map"
-
-  default = {
-    dev = "public-subnet-01"
+  variable "vpc-dns-support" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "az2PublicSubnetCidr" {
-  type = "map"
-
-  default = {
-    dev = "172.168.0.32/27"
+## FLOW LOGS ##
+  
+  variable "flow-logs-name" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "az2PublicSubnetNames" {
-  type = "map"
-
-  default = {
-    dev = "public-subnet-02"
+  variable "log-destination" {
+    type    = "string"
+    default = "" #for now this would be example
   }
-}
 
-variable "publicSubnet" {
-  type    = "string"
-  default = "public"
-}
-
-#Private subnets
-variable "private-type" {
-  type    = "string"
-  default = "private"
-}
-
-variable "az1PrivateSubnetCidr" {
-  type = "map"
-
-  default = {
-    dev = "172.168.0.64/27,172.168.0.96/27,172.168.0.128/27"
+  variable "traffic-type" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "az1PrivateSubnetNames" {
-  type = "map"
-
-  default = {
-    dev = "private-web-subnet-01,private-app-subnet-01,private-db-subnet-01"
+  variable "role-policy-name" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "az2PrivateSubnetCidr" {
-  type = "map"
-
-  default = {
-    dev = "172.168.0.160/27,172.168.0.192/27,172.168.0.224/27"
+  variable "role-name" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "az2PrivateSubnetNames" {
-  type = "map"
-
-  default = {
-    dev = "private-web-subnet-02,private-app-subnet-02,private-db-subnet-02"
+  variable "max-aggregation-interval" {
+    type    = "string"
+    default = ""
   }
-}
 
-variable "privateSubnet" {
-  type    = "string"
-  default = "private"
-}
+## SUBNETS ##
+  
+  ## PUBLIC subnet AZ 1 ##
+    variable "az1PublicSubnetCidr" {
+      type = "map"
 
-## General subnet information
-variable "main-subnet" {
-  type    = "string"
-  default = "main-subnet"
-}
+      default = {
+        dev = ""
+        #dev = "172.168.0.0/27"
+      }
+    }
 
-variable "ha-subnet" {
-  type    = "string"
-  default = "ha-subnet"
-}
+    variable "az1PublicSubnetNames" {
+      type = "map"
 
-# Route Tables
-variable "publicRouteTable" {
-  type    = "string"
-  default = "public-route-table"
-}
+      default = {
+        dev = ""
+        #dev = "public-subnet-01"
+      }
+    }
 
-variable "privateRouteTable" {
-  type    = "string"
-  default = "private-route-table"
-}
+  ## PUBLIC subnet AZ 2 ##
+    variable "az2PublicSubnetCidr" {
+      type = "map"
 
-variable "destinationRoute" {
-  type    = "string"
-  default = "0.0.0.0/0"
-}
+      default = {
+        dev = ""
+        #dev = "172.168.0.32/27"
+      }
+    }
+
+    variable "az2PublicSubnetNames" {
+      type = "map"
+
+      default = {
+        dev = ""
+        #dev = "public-subnet-01"
+      }
+    }
+
+  ## PRIVATE subnet AZ 1 ##
+    variable "az1PrivateSubnetCidr" {
+      type = "map"
+
+      default = {
+        dev = ""
+        #dev = "172.168.0.64/27,172.168.0.96/27,172.168.0.128/27"
+      }
+    }
+
+    variable "az1PrivateSubnetNames" {
+      type = "map"
+
+      default = {
+        dev = ""
+        #dev = "private-web-subnet-01,private-app-subnet-01,private-db-subnet-01"
+      }
+    }
+
+  ## PRIVATE subnet AZ 2 ##
+    variable "az2PrivateSubnetCidr" {
+      type = "map"
+
+      default = {
+        dev = ""
+        #dev = "172.168.0.160/27,172.168.0.192/27,172.168.0.224/27"
+      }
+    }
+
+    variable "az2PrivateSubnetNames" {
+      type = "map"
+
+      default = {
+        dev = ""
+        #dev = "private-web-subnet-02,private-app-subnet-02,private-db-subnet-02"
+      }
+    }
+
+## INTERNET GATEWAY ##
+  
+  variable "igw-name" {
+    type    = "string"
+    default = "sample-igw"
+  }
+
+## ROUTE TABLES ##
+  
+  variable "publicRouteTable" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "privateRouteTable" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "destinationRoute" {
+    type    = "string"
+    default = ""
+    #default = "0.0.0.0/0"
+  }

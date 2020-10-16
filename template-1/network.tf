@@ -5,7 +5,12 @@
     vpc-cidr            = "${lookup(var.vpc-cidr, terraform.workspace)}"
     enable-dns-support  = "${var.vpc-dns-support}"
     enable-dns-hostname = "${var.vpc-dns-hostname}"
-
+    tags = {
+      Name          = "${var.vpc-name}"
+      Template      = "${var.template}"
+      Purpose       = "${var.purpose}"
+      Creation_Date = "${var.created-on}"
+    }
   }
 
 ### FLOW LOGS ###
@@ -19,7 +24,7 @@
     role-name                = "${var.role-name}"
     max-aggregation-interval = "${var.max-aggregation-interval}"
     tags = {
-      Name          = "flow-logs"
+      Name          = "${var.flow-logs-name}"
       Environment   = "${terraform.workspace}"
       Template      = "${var.template}"
       Application   = "${var.application}"
@@ -40,8 +45,8 @@
       visibility          = "${var.publicSubnet}"
       subnet-name         = "${split(",", lookup(var.az1PublicSubnetNames, terraform.workspace))}"
       template            = "${var.template}"
-      subnet-availability = "${var.main-subnet}"
-      type                = "${var.public-type}"
+      subnet-availability = "main-subnet"
+      type                = "public"
     }
 
   ## PUBLIC subnet AZ 2 ##
@@ -54,8 +59,8 @@
       visibility          = "${var.publicSubnet}"
       subnet-name         = "${split(",", lookup(var.az2PublicSubnetNames, terraform.workspace))}"
       template            = "${var.template}"
-      subnet-availability = "${var.ha-subnet}"
-      type                = "${var.public-type}"
+      subnet-availability = "ha-subnet"
+      type                = "public"
     }
 
   ## PRIVATE subnets AZ 1 ##
@@ -68,8 +73,8 @@
       visibility          = "${var.privateSubnet}"
       subnet-name         = "${split(",", lookup(var.az1PrivateSubnetNames, terraform.workspace))}"
       template            = "${var.template}"
-      subnet-availability = "${var.main-subnet}"
-      type                = "${var.private-type}"
+      subnet-availability = "main-subnet"
+      type                = "private"
     }
 
   ## PRIVATE subnets“ AZ 2 ##
@@ -82,8 +87,8 @@
       visibility          = "${var.privateSubnet}"
       subnet-name         = "${split(",", lookup(var.az2PrivateSubnetNames, terraform.workspace))}"
       template            = "${var.template}"
-      subnet-availability = "${var.ha-subnet}"
-      type                = "${var.private-type}"
+      subnet-availability = "ha-subnet"
+      type                = "private"
     }
 
 
@@ -96,11 +101,18 @@
   }
 
 ### ROUTE TABLES ###
+  
   module "privateRT" {
     source   = "../modules/network/route-tables/rt"
     vpc-id   = "${module.new-vpc.vpc-id}"
-    rtName   = "${var.privateRouteTable}"
-    template = "${var.template}"
+    tags = {
+      Name          = "${var.privateRouteTable}"
+      Environment   = "${terraform.workspace}"
+      Template      = "${var.template}"
+      Application   = "${var.application}"
+      Purpose       = "${var.purpose}"
+      Creation_Date = "${var.created-on}"
+    }
   }
 
   module "rtToPriSubnet1" {
@@ -117,18 +129,25 @@
     subnet-cidrs = "${split(",", lookup(var.az2PrivateSubnetCidr, terraform.workspace))}"
   }
 
+  # Private route going to the NAT instance
   module "privateRoutes" {
     source       = "../modules/network/route-tables/route/"
     routeTableId = "${module.privateRT.rt-id}"
     destination  = "${var.destinationRoute}"
-    instanceId   = "${element(module.nat-ec2.ec2-id, 1)}" # need to test whether this is going to work
+    instanceId   = "${module.nat-ec2.ec2-id}"
   }
 
   module "publicRT" {
     source   = "../modules/network/route-tables/rt"
     vpc-id   = "${module.new-vpc.vpc-id}"
-    rtName   = "${var.publicRouteTable}"
-    template = "${var.template}"
+    tags = {
+      Name          = "${var.publicRouteTable}"
+      Environment   = "${terraform.workspace}"
+      Template      = "${var.template}"
+      Application   = "${var.application}"
+      Purpose       = "${var.purpose}"
+      Creation_Date = "${var.created-on}"
+    }
   }
 
   module "rtToPubSubnet1" {
@@ -145,6 +164,7 @@
     subnet-cidrs = "${split(",", lookup(var.az2PublicSubnetCidr, terraform.workspace))}"
   }
 
+  # Public route going to the Internet Gateway
   module "publicRoutes" {
     source       = "../modules/network/route-tables/route/"
     routeTableId = "${module.publicRT.rt-id}"

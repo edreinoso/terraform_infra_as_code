@@ -1,125 +1,137 @@
-# EC2
-#Web | NAT
-variable "ami" {
-  type    = "string"
-  default = ""
-}
+## EC2 ##
+  #Web | NAT
+  variable "ami" {
+    type    = "string"
+    default = ""
+  }
 
-variable "custom-ami" {
-  type    = "string"
-  default = ""
-}
+  variable "instance-type" {
+    type    = "string"
+    default = ""
+  }
 
-variable "instance-type" {
-  type    = "string"
-  default = "t2.micro"
-}
+  variable "public-ip-association-true" {
+    type    = "string"
+    default = ""
+  }
 
-variable "public-ip-association-true" {
-  type    = "string"
-  default = "true"
-}
+  variable "sourceCheck-enable" {
+    type = "string"
+    default = ""
+  }
 
-variable "sourceCheck-enable" {
-  type = "string"
-  default = "true"
-}
+  variable "sourceCheck-disable" {
+    type = "string"
+    default = ""
+  }
 
-variable "sourceCheck-disable" {
-  type = "string"
-  default = ""
-}
+  variable "public-ip-association-false" {
+    type    = "string"
+    default = ""
+  }
 
-variable "public-ip-association-false" {
-  type    = "string"
-  default = ""
-}
+  variable "ec2-name-pub-nat" {
+    type    = "string"
+    default = ""
+  }
 
-variable "ec2-name-pub-nat" {
-  type    = "string"
-  default = "nat-host"
-}
+  variable "ec2-name-pri-web" {
+    type    = "string"
+    default = ""
+  }
 
-variable "ec2-name-pri-web" {
-  type    = "string"
-  default = "web-server"
-}
+  variable "ec2-name-app" {
+    type    = "string"
+    default = ""
+  }
 
-variable "ec2-name-app" {
-  type    = "string"
-  default = "web-server"
-}
+  variable "key-name-pub" {
+    type    = "string"
+    default = ""
+  }
 
-variable "key-name-pub" {
-  type    = "string"
-  default = "base-template"
-}
+  variable "key-name-pri" {
+    type    = "string"
+    default = ""
+  }
 
-variable "key-name-pri" {
-  type    = "string"
-  default = "internal-base-template"
-}
-# Load Balancers
+## ELB ##
 
-variable "elb-name" {
-  type    = "string"
-  default = "sample-elb"
-}
+  variable "elb-name" {
+    type    = "string"
+    default = ""
+  }
 
-variable "elb-type" {
-  type    = "string"
-  default = "application"
-}
+  variable "elb-type" {
+    type    = "string"
+    default = ""
+  }
 
-variable "internal-elb" {
-  type    = "string"
-  default = "false"
-}
+  variable "internal-elb" {
+    type    = "string"
+    default = ""
+  }
 
-variable "elb-tg-name" {
-  type = "string"
-  default = "sample-target-group"
-}
+  variable "elb-tg-name" {
+    type = "string"
+    default = ""
+  }
 
-variable "tg-port" {
-  type    = "string"
-  default = "80"
-}
+  variable "tg-port" {
+    type    = "string"
+    default = ""
+  }
 
-variable "tg-protocol" {
-  type    = "string"
-  default = "HTTP"
-}
+  variable "listener-protocol" {
+    type    = "string"
+    default = ""
+  }
 
-variable "tg-target-type" {
-  type    = "string"
-  default = "instance"
-}
+  variable "certificate" {
+    type    = "string"
+    default = ""
+  }
+  
+  variable "ssl-policy" {
+    type    = "string"
+    default = ""
+  }
 
-variable "tg-deregister" {
-  type = "string"
+  variable "tg-protocol" {
+    type    = "string"
+    default = ""
+  }
 
-  # monitor for change
-  default = "400"
-}
+  variable "tg-target-type" {
+    type    = "string"
+    default = ""
+  }
 
-# S3
-variable "bucket-name" {
-  type    = "string"
-  default = "sample-load-balancer-logs-bucket"
-}
+  variable "tg-deregister" {
+    type = "string"
 
-variable "acl" {
-  type    = "string"
-  default = "private"
-}
+    # monitor for change
+    default = ""
+  }
 
-variable "destroy" {
-  type    = "string"
-  default = "true"
-}
+## S3 ##
 
-variable "account-id" {
-  type    = "string"
-  default = "" # your account ID
-}
+  variable "bucket-name" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "acl" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "destroy" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "account-id" {
+    type    = "string"
+    default = "" # your account ID
+  }

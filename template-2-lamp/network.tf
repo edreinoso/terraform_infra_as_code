@@ -8,6 +8,27 @@ module "new-vpc" {
   enable-dns-hostname = "${var.vpc-dns-hostname}"
 }
 
+### VPC - FLOW LOGS ###
+
+module "vpc-flow-logs" {
+  source                   = "../modules/network/flow-log"
+  vpc-id                   = "${module.new-vpc.vpc-id}"
+  traffic-type             = "${var.traffic-type}"
+  log-destination          = "${var.log-destination}"
+  role-policy-name         = "${var.role-policy-name}"
+  role-name                = "${var.role-name}"
+  max-aggregation-interval = "${var.max-aggregation-interval}"
+  #Tags
+  tags = {
+    Name          = "flow-logs"
+    Environment   = "${terraform.workspace}"
+    Template      = "${var.template}"
+    Application   = "${var.application}"
+    Purpose       = "${var.purpose}"
+    Creation_Date = "${var.created-on}"
+  }
+}
+
 ### SUBNETS ###
 
 # # Public subnet where the potential web server instances/bastion hosts will be created
@@ -94,6 +115,7 @@ module "rtToPriSubnet2" {
   subnet-cidrs = "${split(",", lookup(var.az2PrivateSubnetCidr, terraform.workspace))}"
 }
 
+# private routes to the NAT bastion
 module "privateRoutes" {
   source       = "../modules/network/route-tables/route/"
   routeTableId = "${module.privateRT.rt-id}"

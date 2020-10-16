@@ -1,154 +1,152 @@
-### AUTOSCALING, ELB AND NAT INSTANCE ###
+## AUTOSCALING ##
+
+  variable "launch-configuration-name" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "autoscaling-name" {
+    type    = "string"
+    default = ""
+  }
+
+  # this ami is going to be the one of the web server
+  # base Amazon Linux AMI is given below
+  variable "ami" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "instance-type" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "health-check" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "enabled_metrics" {
+    type = "list"
+    default = []
+  }
+
+  variable "key-name-pub" {
+    type    = "string"
+    default = ""
+  }
+
+## ELB ##
+
+  variable "elb-name" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "elb-type" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "internal-elb" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "elb-tg-name" {
+    type = "string"
+    default = ""
+  }
+
+  variable "tg-port" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "listener-protocol" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "certificate" {
+    type    = "string"
+    default = ""
+  }
+  
+  variable "ssl-policy" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "tg-protocol" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "tg-target-type" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "tg-deregister" {
+    type = ""
+
+    # monitor for change
+    default = ""
+  }
+
+## S3 ## 
+
+  variable "bucket-name" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "acl" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "destroy" {
+    type    = "string"
+    default = ""
+  }
+
+  variable "account-id" {
+    type    = "string"
+    default = "" # your account ID
+  }
 
 
-### AUTOSCALING ###
+## NAT ##
 
-variable "launch-configuration-name" {
-  type    = "string"
-  default = "lc_example"
-}
+  variable "instance-type" {
+    type    = "string"
+    default = ""
+  }
 
-variable "autoscaling-name" {
-  type    = "string"
-  default = "asg_example"
-}
+  variable "public-ip-association-true" {
+    type    = "string"
+    default = ""
+  }
 
-# this ami is going to be the one of the web server
-# base Amazon Linux AMI is given below
-variable "ami" {
-  type    = "string"
-  default = "ami-08f3d892de259504d"
-}
+  variable "public-ip-association-false" {
+    type    = "string"
+    default = ""
+  }
 
-variable "instance-type" {
-  type    = "string"
-  default = "t2.micro"
-}
+  variable "sourceCheck-disable" {
+    type = "string"
+    default = ""
+  }
 
-variable "health-check" {
-  type    = "string"
-  default = "EC2"
-}
+  variable "key-name-pub" {
+    type    = "string"
+    default = ""
+  }
 
-# variable "role" {
-#   type    = "string"
-#   default = ""
-# }
-
-variable "enabled_metrics" {
-  type = "list"
-  default = [
-    "GroupMinSize",
-    "GroupMaxSize",
-    "GroupDesiredCapacity",
-    "GroupTotalInstances",
-  ]
-}
-
-variable "key-name-pub" {
-  type    = "string"
-  default = "base-template"
-}
-
-### ELB ###
-
-variable "elb-name" {
-  type    = "string"
-  default = "sample-elb"
-}
-
-variable "elb-type" {
-  type    = "string"
-  default = "application"
-}
-
-variable "internal-elb" {
-  type    = "string"
-  default = "false"
-}
-
-variable "elb-tg-name" {
-  type = "string"
-  default = "sample-target-group"
-}
-
-variable "tg-port" {
-  type    = "string"
-  default = "80"
-}
-
-variable "tg-protocol" {
-  type    = "string"
-  default = "HTTP"
-}
-
-variable "tg-target-type" {
-  type    = "string"
-  default = "instance"
-}
-
-variable "tg-deregister" {
-  type = "string"
-
-  # monitor for change
-  default = "400"
-}
-
-# S3
-variable "bucket-name" {
-  type    = "string"
-  default = "load-balancer-logs-elb-ed"
-}
-
-variable "acl" {
-  type    = "string"
-  default = "private"
-}
-
-variable "destroy" {
-  type    = "string"
-  default = "true"
-}
-
-variable "account-id" {
-  type    = "string"
-  default = "" # your account ID
-}
-
-
-### NAT ###
-
-variable "instance-type" {
-  type    = "string"
-  default = "t2.micro"
-}
-
-variable "public-ip-association-true" {
-  type    = "string"
-  default = "true"
-}
-
-variable "public-ip-association-false" {
-  type    = "string"
-  default = ""
-}
-
-variable "sourceCheck-enable" {
-  type = "string"
-  default = "true"
-}
-
-variable "sourceCheck-disable" {
-  type = "string"
-  default = ""
-}
-
-variable "key-name-pub" {
-  type    = "string"
-  default = "base-template"
-}
-
-variable "key-name-pri" {
-  type    = "string"
-  default = "internal-base-template"
-}
+  variable "key-name-pri" {
+    type    = "string"
+    default = ""
+  }

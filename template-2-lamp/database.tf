@@ -18,10 +18,6 @@ module "new-rds" {
   skip-final             = "${var.skip-final-snapshot}"
   db-subnet-group        = "${module.subnet-group-private.subnet-group-outputs}"
   vpc-security-group-ids = "${split(",", aws_security_group.db-pri-sg.id)}"
-  # this needs to be changed
-  # snapshot-identifier = "${var.snapshot-identifier}" # optional if building from snapshot
-  # db-subnet-group        = "${aws_db_subnet_group.rds-subnet-group-private.id}"
-  # vpc-security-group-ids = "${split(",", data.terraform_remote_state.security.outputs.database-sg-pri)}"
 }
 
 module "subnet-group-private" {

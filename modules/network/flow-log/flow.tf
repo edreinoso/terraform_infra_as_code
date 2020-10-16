@@ -4,14 +4,7 @@ resource "aws_flow_log" "flow_logs" {
   vpc_id                   = "${var.vpc-id}"
   traffic_type             = "${var.traffic-type}"
   max_aggregation_interval = "${var.max-aggregation-interval}"
-  tags = {
-    Name          = "${var.name}"
-    Environment   = "${var.environment}"
-    Template      = "${var.template}"
-    Application   = "${var.application}"
-    Purpose       = "${var.purpose}"
-    Creation_Date = "${var.created-on}"
-  }
+  tags                     = var.tags
 }
 
 resource "aws_cloudwatch_log_group" "log_groups" {

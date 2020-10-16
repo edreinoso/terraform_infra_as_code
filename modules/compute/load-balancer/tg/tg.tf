@@ -6,11 +6,12 @@ resource "aws_lb_target_group" "target-group" {
   target_type          = "${var.tg-target-type}"
   vpc_id               = "${var.vpc-id}"
   deregistration_delay = "${var.deregistration}"
+  tags                 = var.tags
 
-  tags = merge(
-    var.tags,
-    var.target_group_tags,
-  )
+  # tags = merge(
+  #   var.tags,
+  #   var.target_group_tags,
+  # )
 
   #   tags = merge(
   #   var.tags,

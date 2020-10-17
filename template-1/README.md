@@ -18,9 +18,8 @@ Network Stack:
 
 Security Resources:
 - SG ALB
+- SG Nat
 - SG Web
-- SG App
-- SG DB
 
 Compute Stack:
 - ALB

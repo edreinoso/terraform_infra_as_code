@@ -1,74 +1,78 @@
-variable "engine" {
-  type    = "string"
-  default = "mysql"
-}
+## RDS ##
 
-variable "storage" {
-  type    = "string"
-  default = "30"
-}
+  variable "engine" {
+    type    = "string"
+    default = ""
+  }
 
-variable "storage-type" {
-  type    = "string"
-  default = "gp2"
-}
+  variable "storage" {
+    type    = "string"
+    default = ""
+  }
 
-variable "engine-version" {
-  type    = "string"
-  default = "5.7.22"
-}
+  variable "storage-type" {
+    type    = "string"
+    default = ""
+  }
 
-variable "instance-class" {
-  type    = "string"
-  default = "db.t2.micro"
-}
+  variable "engine-version" {
+    type    = "string"
+    default = ""
+  }
 
-variable "rds-name" {
-  type    = "string"
-  default = "sample-rds"
-}
+  variable "instance-class" {
+    type    = "string"
+    default = ""
+  }
 
-variable "username" {
-  type    = "string"
-  default = ""
-}
+  variable "rds-name" {
+    type    = "string"
+    default = ""
+  }
 
-variable "password" {
-  type    = "string"
-  default = ""
-}
+  variable "username" {
+    type    = "string"
+    default = ""
+  }
 
-variable "db-name" {
-  type    = "string"
-  default = ""
-}
+  variable "password" {
+    type    = "string"
+    default = ""
+  }
 
-variable "publicly-accessible" {
-  type    = "string"
-  default = "false"
-}
+  variable "db-name" {
+    type    = "string"
+    default = ""
+  }
 
-variable "subnet-group-name" {
-  type    = "string"
-  default = "subnet-group"
-}
+  variable "publicly-accessible" {
+    type    = "string"
+    default = ""
+  }
 
-variable "db-port" {
-  type    = "string"
-  default = "3306"
-}
+  variable "db-port" {
+    type    = "string"
+    default = ""
+  }
 
-variable "skip-final-snapshot" {
-  type    = "string"
-  default = "false"
-}
+  variable "skip-final-snapshot" {
+    type    = "string"
+    default = ""
+  }
 
-variable "snapshot-identifier" {
-  type    = "string"
-  default = "template-2-dev-snapshot"
-}
+  variable "snapshot-identifier" {
+    type    = "string"
+    default = ""
+  }
 
-variable "final-snapshot" {
-  type    = "string"
-  default = "terraform-snapshot-template-2-prod"
-}
+  variable "final-snapshot" {
+    type    = "string"
+    default = ""
+  }
+
+## SUBNET GROUP ##
+  
+  variable "subnet-group-name" {
+    type    = "string"
+    default = ""
+  }

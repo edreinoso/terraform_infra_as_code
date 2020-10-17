@@ -26,7 +26,11 @@ resource "aws_s3_bucket" "s3" {
 POLICY
 
   tags = {
-    Name     = "${var.bucket-name}"
-    Template = "${var.template}"
+    Name            = "${var.bucket-name}"
+    Environment     = "${terraform.workspace}"
+    Template        = "${var.template}"
+    Application     = "${var.application}"
+    Purpose         = "${var.purpose}"
+    Creation_Date   = "${var.created-on}"
   }
 }

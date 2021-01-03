@@ -8,11 +8,6 @@ variable "size" {
   default = []
 }
 
-variable "name" {
-  type    = "list"
-  default = []
-}
-
 variable "type" {
   type    = "string"
   default = ""
@@ -38,27 +33,7 @@ variable "kms-id" {
   default = ""
 }
 
-variable "template" {
-  type    = "string"
-  default = ""
-}
-
-variable "purpose" {
-  type    = "string"
-  default = ""
-}
-
-variable "application" {
-  type    = "string"
-  default = ""
-}
-
-variable "created-on" {
-  type    = "string"
-  default = ""
-}
-
-variable "environment" {
-  type    = "string"
-  default = ""
+variable "tags" {
+  type    = "map"
+  default = {}
 }

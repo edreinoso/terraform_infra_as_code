@@ -8,11 +8,6 @@ variable "hash-key" {
   default = ""
 }
 
-variable "environment" {
-  type    = "string"
-  default = ""
-}
-
 variable "write" {
   type    = "string"
   default = ""
@@ -48,14 +43,9 @@ variable "ttl-attribute" {
   default = ""
 }
 
-variable "app" {
-  type    = "string"
-  default = ""
-}
-
-variable "created" {
-  type    = "string"
-  default = ""
+variable "tags" {
+  type    = "map"
+  default = {}
 }
 
 ## Attributes

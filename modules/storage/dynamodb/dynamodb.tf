@@ -26,12 +26,7 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   #   }
   # }
 
-  tags = { #optional
-    Name        = "${var.name}"
-    Created     = "${var.created}"
-    Application = "${var.app}"
-    Environment = "${var.environment}"
-  }
+  tags = var.tags
 
   # ttl { #optional
   #   attribute_name = "TimeToExist"

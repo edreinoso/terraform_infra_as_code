@@ -23,29 +23,10 @@ variable "runtime" {
   default = ""
 }
 
-variable "template" {
-  type    = "string"
-  default = ""
-}
-
-variable "purpose" {
-  type    = "string"
-  default = ""
-}
-
-variable "application" {
-  type    = "string"
-  default = ""
-}
-
-variable "created-on" {
-  type    = "string"
-  default = ""
-}
-
-variable "environment" {
-  type    = "string"
-  default = ""
+variable "layers" {
+  description = "List of Lambda Layer Version ARNs (maximum of 5) to attach to your Lambda Function."
+  type        = list(string)
+  default     = null
 }
 
 variable "timeout" {

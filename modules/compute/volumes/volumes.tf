@@ -1,5 +1,5 @@
 resource "aws_ebs_volume" "volume" {
-  count             = "${length(var.name)}"
+  count             = "${length(var.size)}"
   availability_zone = "${var.az}"
   type              = "${var.type}"
   size              = "${element(var.size, count.index)}"
@@ -8,13 +8,5 @@ resource "aws_ebs_volume" "volume" {
   kms_key_id        = "${var.kms-id}"
   #   iops              = "${var.iops}"
 
-
-  tags = {
-    Name          = "${element(var.name, count.index)}"
-    Environment   = "${var.environment}"
-    Template      = "${var.template}"
-    Application   = "${var.application}"
-    Purpose       = "${var.purpose}"
-    Creation_Date = "${var.created-on}"
-  }
+  tags = var.tags
 }

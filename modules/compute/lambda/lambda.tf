@@ -7,5 +7,6 @@ resource "aws_lambda_function" "lambda" {
   runtime          = "${var.runtime}"
   timeout          = "${var.timeout}"
   memory_size      = "${var.memory-size}"
+  layers           = "${var.layers}"
   tags             = var.tags
 }

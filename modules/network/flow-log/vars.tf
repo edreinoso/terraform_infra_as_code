@@ -1,7 +1,7 @@
 ## TAGS
 
 variable "tags" {
-  type    = "map"
+  type    = map
   default = {}
 }
 
@@ -13,26 +13,26 @@ variable "log-destination" {
 }
 
 variable "vpc-id" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "traffic-type" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "max-aggregation-interval" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "role-policy-name" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "role-name" {
-  type    = "string"
+  type    = string
   default = ""
 }

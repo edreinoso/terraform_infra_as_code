@@ -1,20 +1,20 @@
 variable "vpc-id" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "subnet-cidr" {
-  type    = "list"
+  type    = list
   default = []
 }
 
 variable "availability_zone" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "visibility" {
-  type    = "string"
+  type    = string
   default = "private"
 }
 
@@ -28,41 +28,41 @@ variable "visibility" {
 # due to the interrelation between count
 # and subnet-name variable
 variable "subnet-name" {
-  type    = "list"
+  type    = list
   default = []
 }
 
 variable "template" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "application" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "purpose" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "environment" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "created-on" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "subnet-availability" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "type" {
-  type    = "string"
+  type    = string
   default = ""
 }

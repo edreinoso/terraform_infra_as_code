@@ -1,15 +1,15 @@
 variable "subnet-ids" {
-  type    = "list"
+  type    = list
   default = []
 }
 
 # variable "private-ips" {
-#   type    = "list"
+#   type    = list
 #   default = []
 # }
 
 variable "ec2-name" {
-  type    = "list"
+  type    = list
   default = []
 }
 
@@ -19,6 +19,6 @@ variable "instance-id" {
 }
 
 variable "security-groups" {
-  type    = "list"
+  type    = list
   default = []
 }

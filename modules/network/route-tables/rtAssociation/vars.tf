@@ -1,14 +1,14 @@
 variable "subnet-ids" {
-  type = "list"
+  type = list
   default = []
 }
 
 variable "rt-id" {
-  type = "string"
+  type = string
   default = ""
 }
 
 variable "subnet-cidrs" {
-  type = "list"
+  type = list
   default = []
 }

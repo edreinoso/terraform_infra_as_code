@@ -1,19 +1,19 @@
 variable "igw" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "instanceId" {
-  type = "string"
+  type    = string
   default = ""
 }
 
 variable "destination" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "routeTableId" {
-  type    = "string"
+  type    = string
   default = ""
 }

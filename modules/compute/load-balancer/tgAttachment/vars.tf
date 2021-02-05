@@ -1,16 +1,16 @@
 variable "target-group-arn" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "tg-id" {
-  type    = "string"
+  type    = string
   default = ""
-  # type    = "list"
+  # type    = list
   # default = []
 }
 
 variable "port" {
-  type    = "string"
+  type    = string
   default = ""
 }

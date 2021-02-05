@@ -44,7 +44,7 @@ variable "sourceCheck" {
 }
 
 variable "security-group-ids" {
-  type    = "list"
+  type    = list
   default = []
 }
 

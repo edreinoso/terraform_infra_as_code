@@ -1,13 +1,13 @@
 resource "aws_instance" "ec2" {
-  ami                         = "${var.ami}"
-  instance_type               = "${var.instance-type}"
-  subnet_id                   = "${var.subnet-ids}"
-  key_name                    = "${var.key-name}"
-  vpc_security_group_ids      = "${var.security-group-ids}"
-  user_data                   = "${var.user-data}"
-  iam_instance_profile        = "${var.instance-role}"
-  associate_public_ip_address = "${var.public-ip == "" ? false : true}"
-  source_dest_check           = "${var.sourceCheck == "" ? false : true}"
+  ami                         = var.ami
+  instance_type               = var.instance-type
+  subnet_id                   = var.subnet-ids
+  key_name                    = var.key-name
+  vpc_security_group_ids      = var.security-group-ids
+  user_data                   = var.user-data
+  iam_instance_profile        = var.instance-role
+  associate_public_ip_address = var.public-ip == "" ? false : true
+  source_dest_check           = var.sourceCheck == "" ? false : true
 
 
   tags = var.tags

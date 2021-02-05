@@ -1,6 +1,6 @@
 
 variable "elb-tg-name" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
@@ -10,7 +10,7 @@ variable "tags" {
 }
 
 variable "vpc-id" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
@@ -18,21 +18,21 @@ variable "vpc-id" {
 # target group association
 
 variable "tg-port" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "tg-protocol" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "tg-target-type" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "deregistration" {
-  type    = "string"
+  type    = string
   default = ""
 }

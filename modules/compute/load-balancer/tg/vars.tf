@@ -5,7 +5,7 @@ variable "elb-tg-name" {
 }
 
 variable "tags" {
-  type    = "map"
+  type    = map
   default = {}
 }
 

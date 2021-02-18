@@ -8,9 +8,9 @@ resource "aws_lb_target_group" "target-group" {
   deregistration_delay = var.deregistration
 
   health_check {
-    health_cheks_path     = var.path
-    health_cheks_port     = var.tg-port
-    health_cheks_protocol = var.tg-protocol
+    path     = var.path
+    port     = var.tg-port
+    protocol = var.tg-protocol
   }
 
   tags = var.tags

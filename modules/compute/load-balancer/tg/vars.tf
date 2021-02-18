@@ -36,3 +36,10 @@ variable "deregistration" {
   type    = string
   default = ""
 }
+
+## Health Checks
+
+variable "path" {
+  type    = string
+  default = ""
+}

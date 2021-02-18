@@ -6,5 +6,12 @@ resource "aws_lb_target_group" "target-group" {
   target_type          = var.tg-target-type
   vpc_id               = var.vpc-id
   deregistration_delay = var.deregistration
-  tags                 = var.tags
+
+  health_check {
+    health_cheks_path     = var.path
+    health_cheks_port     = var.tg-port
+    health_cheks_protocol = var.tg-protocol
+  }
+
+  tags = var.tags
 }

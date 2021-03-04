@@ -27,7 +27,7 @@
       subnet-ids         = element(module.pub_subnet_2.subnet-id, 1)
       security-group-ids = split(",", aws_security_group.nat-sg.id)
       tags = {
-        Name          = ""
+        Name          = "nat bastion host"
         Template      = ""
         Environment   = ""
         Application   = ""

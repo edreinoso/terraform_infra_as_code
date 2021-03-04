@@ -10,7 +10,7 @@
 
   variable "autoscaling-name" {
     type    = string
-    default = "asg_example"
+    default = "asg web server"
   }
 
   # this ami is going to be the one of the web server
@@ -107,7 +107,7 @@
 
   variable "account-id" {
     type    = string
-    default = "" # your account ID
+    default = "130193131803" # your account ID
   }
 
 

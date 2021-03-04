@@ -3,21 +3,21 @@ variable "AWS_REGIONS" {
 }
 
 variable "template" {
-  type    = "string"
+  type    = string
   default = "infrastructure-as-code"
 }
 
 variable "created-on" {
-  type    = "string"
+  type    = string
   default = "August_14_2020"
 }
 
 variable "application" {
-  type    = "string"
+  type    = string
   default = "template-1-autoscaling"
 }
 
 variable "purpose" {
-  type    = "string"
+  type    = string
   default = "testing_autoscaling_modes"
 }

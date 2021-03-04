@@ -1,5 +1,5 @@
 module "autoscaling_example" {
-  source = "/Users/elchoco/aws/terraform_infrastructure_as_code/modules/compute/autoscaling"
+  source = "github.com/edreinoso/terraform_infrastructure_as_code/modules/compute/autoscaling"
 
   name = "${var.autoscaling-name}-${terraform.workspace}"
 
@@ -8,13 +8,13 @@ module "autoscaling_example" {
   # launch_configuration = "my-existing-launch-configuration" # Use the existing launch configuration
   # create_lc = false # disables creation of launch configuration
   lc_name                      = "${var.launch-configuration-name}-${terraform.workspace}"
-  image_id                     = "${var.ami}"
-  instance_type                = "${var.instance-type}"
-  security_groups              = "${split(",", aws_security_group.nat-sg.id)}" #
+  image_id                     = var.ami
+  instance_type                = var.instance-type
+  security_groups              = split(",", aws_security_group.web-sg.id) #
   associate_public_ip_address  = true
   recreate_asg_when_lc_changes = true
   user_data_base64             = base64encode("${file("build.sh")}")
-  key_name                     = "${var.key-name-pub}"
+  key_name                     = var.key-name-pub
   ebs_block_device = [
     {
       device_name           = "/dev/xvdk"
@@ -31,47 +31,52 @@ module "autoscaling_example" {
     },
   ]
 
+  # element(element(element(module.pri_subnet_1.subnet-id, 1), 0),0)
+
   # Auto scaling group
   asg_name                  = "${var.autoscaling-name}-${terraform.workspace}"
-  vpc_zone_identifier       = ["${element(module.pub_subnet_2.subnet-id, 1)}", "${element(module.pub_subnet_1.subnet-id, 1)}"]
-  health_check_type         = "${var.health-check}"
-  target_group_arns         = ["${module.target-group.target-arn}"]
+  # vpc_zone_identifier       = [element(element(element(module.pri_subnet_1.subnet-id, 1), 0),0), element(element(element(module.pri_subnet_2.subnet-id, 1), 0),0)]
+  # vpc_zone_identifier       = [element(element(module.pri_subnet_1.subnet-id, 1),0), element(element(module.pri_subnet_2.subnet-id, 1),0)]
+  # vpc_zone_identifier       = [module.pri_subnet_1.subnet-id, module.pri_subnet_2.subnet-id]
+  vpc_zone_identifier       = [element(module.pri_subnet_1.subnet-id, 1), element(module.pri_subnet_2.subnet-id, 1)]
+  health_check_type         = var.health-check
+  target_group_arns         = [module.target-group.target-arn]
   desired_capacity          = 1
   min_size                  = 1
   max_size                  = 3
   wait_for_capacity_timeout = 0
-  enabled_metrics           = "${var.enabled_metrics}"
-  # service_linked_role_arn   = "${var.role}"
+  enabled_metrics           = var.enabled_metrics
+  # service_linked_role_arn   = var.role}"
 
   tags = [
     {
       key                 = "Environment"
-      value               = "${terraform.workspace}"
+      value               = terraform.workspace
       propagate_at_launch = true
     },
     {
       key                 = "Template"
-      value               = "${var.template}"
+      value               = var.template
       propagate_at_launch = true
     },
     {
       key                 = "Creation Date"
-      value               = "${var.created-on}"
+      value               = var.created-on
       propagate_at_launch = true
     },
     {
       key                 = "Purpose"
-      value               = "${var.purpose}"
+      value               = var.purpose
       propagate_at_launch = true
     },
     {
       key                 = "Application"
-      value               = "${var.application}"
+      value               = var.application
       propagate_at_launch = true
     },
     {
       key                 = "Name"
-      value               = "${var.autoscaling-name}"
+      value               = var.autoscaling-name
       propagate_at_launch = true
     },
   ]
@@ -81,7 +86,7 @@ module "autoscaling_example" {
 resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
   name                      = "testing-target-tracking-policy"
   policy_type               = "TargetTrackingScaling"
-  autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
+  autoscaling_group_name    = module.autoscaling_example.this_autoscaling_group_name
   estimated_instance_warmup = 200
   target_tracking_configuration {
     predefined_metric_specification {
@@ -94,7 +99,7 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
 ### STEP POLICY ###
 # resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_out" {
 #   name                      = "testing-step-policy-scale_out"
-#   autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
+#   autoscaling_group_name    = module.autoscaling_example.this_autoscaling_group_name
 #   adjustment_type           = "ChangeInCapacity"
 #   policy_type               = "StepScaling"
 #   step_adjustment {
@@ -115,7 +120,7 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
 
 # resource "aws_autoscaling_policy" "web_cluster_step_policy_scale_in" {
 #   name                      = "testing-step-policy-scale_in"
-#   autoscaling_group_name    = "${module.autoscaling_example.this_autoscaling_group_name}"
+#   autoscaling_group_name    = module.autoscaling_example.this_autoscaling_group_name
 #   adjustment_type           = "ChangeInCapacity"
 #   policy_type               = "StepScaling"
 #   step_adjustment {
@@ -138,7 +143,7 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
 # # autoscaling policy to measure Cpu metrics to scale up by 1 server
 # resource "aws_autoscaling_policy" "web_cluster_simple_policy_scale_out" {
 #   name                   = "example-cpu-policy-scaleup"
-#   autoscaling_group_name = "${module.example.this_autoscaling_group_name}"
+#   autoscaling_group_name = module.example.this_autoscaling_group_name
 #   adjustment_type        = "ChangeInCapacity"
 #   scaling_adjustment     = "1"
 #   cooldown               = "60"
@@ -148,7 +153,7 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
 # # autoscaling measure to scale down by 1 server
 # resource "aws_autoscaling_policy" "web_cluster_simple_policy_scale_in" {
 #   name                   = "example-cpu-policy-scaledown"
-#   autoscaling_group_name = "${module.example.this_autoscaling_group_name}" # "${module.new-vpc.vpc-id}"
+#   autoscaling_group_name = module.example.this_autoscaling_group_name # module.new-vpc.vpc-id}"
 #   adjustment_type        = "ChangeInCapacity"
 #   scaling_adjustment     = "-1"
 #   cooldown               = "60"
@@ -168,10 +173,10 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
 #   statistic           = "Average"
 #   threshold           = "70"
 #   dimensions = {
-#     "AutoScalingGroupName" = "${module.autoscaling_example.this_autoscaling_group_name}"
+#     "AutoScalingGroupName" = module.autoscaling_example.this_autoscaling_group_name
 #   }
 #   actions_enabled = true
-#   alarm_actions   = ["${aws_autoscaling_policy.web_cluster_step_policy_scale_out.arn}"]
+#   alarm_actions   = [aws_autoscaling_policy.web_cluster_step_policy_scale_out.arn}"]
 # }
 
 # resource "aws_cloudwatch_metric_alarm" "example-cpu-alarm-scale_in" {
@@ -185,8 +190,8 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
 #   statistic           = "Average"
 #   threshold           = "10"
 #   dimensions = {
-#     "AutoScalingGroupName" = "${module.autoscaling_example.this_autoscaling_group_name}" # need to get this value
+#     "AutoScalingGroupName" = module.autoscaling_example.this_autoscaling_group_name # need to get this value
 #   }
 #   actions_enabled = true
-#   alarm_actions   = ["${aws_autoscaling_policy.web_cluster_step_policy_scale_in.arn}"]
+#   alarm_actions   = [aws_autoscaling_policy.web_cluster_step_policy_scale_in.arn}"]
 # }

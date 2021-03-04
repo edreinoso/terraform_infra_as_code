@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "s3" {
-  bucket        = "${var.bucket-name}"
-  acl           = "${var.acl}"
-  force_destroy = "${var.destroy}"
+  bucket        = var.bucket-name
+  acl           = var.acl
+  force_destroy = var.destroy
 
   policy = <<POLICY
 {
@@ -26,11 +26,11 @@ resource "aws_s3_bucket" "s3" {
 POLICY
 
   tags = {
-    Name            = "${var.bucket-name}"
-    Environment     = "${terraform.workspace}"
-    Template        = "${var.template}"
-    Application     = "${var.application}"
-    Purpose         = "${var.purpose}"
-    Creation_Date   = "${var.created-on}"
+    Name            = var.bucket-name
+    Environment     = terraform.workspace
+    Template        = var.template
+    Application     = var.application
+    Purpose         = var.purpose
+    Creation_Date   = var.created-on
   }
 }

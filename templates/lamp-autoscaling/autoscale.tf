@@ -91,8 +91,8 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
       # making this resource label dynamic is going to take a bit of work
       # taking only a certain portion of the elb and tg arn is going to require
       # some shell scripting
-      resource_label = "app/${var.elb-name}/cc726da8048f2ea6/targetgroup/${var.elb-tg-name}/54a0a849fc831919"
-      # resource_label = "app/${var.elb-name}/${module.elb.id}/targetgroup/${var.elb-tg-name}/${module.target-group.id}"
+      # resource_label = "app/${var.elb-name}/cc726da8048f2ea6/targetgroup/${var.elb-tg-name}/54a0a849fc831919"
+      resource_label = "app/${var.elb-name}/${module.elb.elb-arn-suffix}/targetgroup/${var.elb-tg-name}/${module.target-group.tg-arn-suffix}"
     }
     target_value = "60"
   }

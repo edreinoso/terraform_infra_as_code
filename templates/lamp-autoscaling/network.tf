@@ -64,7 +64,7 @@
       type                = var.public-type
     }
 
-  ## PRIVATE subnets AZ 1 ##
+  ## PRIVATE subnets AZ 1 ## WEB, APP, DB
     
     module "pri_subnet_1" {
       source              = "github.com/edreinoso/terraform_infrastructure_as_code/modules/network/subnet"

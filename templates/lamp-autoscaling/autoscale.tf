@@ -11,10 +11,10 @@ module "autoscaling_example" {
   image_id                     = var.ami
   instance_type                = var.instance-type
   security_groups              = split(",", aws_security_group.web-sg.id) #
-  associate_public_ip_address  = true
+  associate_public_ip_address  = false
   recreate_asg_when_lc_changes = true
   user_data_base64             = base64encode("${file("build.sh")}")
-  key_name                     = var.key-name-pub
+  key_name                     = var.key-name-pri
   ebs_block_device = [
     {
       device_name           = "/dev/xvdk"
@@ -35,7 +35,7 @@ module "autoscaling_example" {
 
   # Auto scaling group
   asg_name                  = "${var.autoscaling-name}-${terraform.workspace}"
-  vpc_zone_identifier       = [element(module.pri_subnet_1.subnet-id, 1), element(module.pri_subnet_2.subnet-id, 1)]
+  vpc_zone_identifier       = [element(module.pri_subnet_1.subnet-id, 3), element(module.pri_subnet_2.subnet-id, 3)]
   health_check_type         = var.health-check
   target_group_arns         = [module.target-group.target-arn]
   desired_capacity          = 1
@@ -92,7 +92,7 @@ resource "aws_autoscaling_policy" "web_cluster_target_tracking_policy" {
       # taking only a certain portion of the elb and tg arn is going to require
       # some shell scripting
       # resource_label = "app/${var.elb-name}/cc726da8048f2ea6/targetgroup/${var.elb-tg-name}/54a0a849fc831919"
-      resource_label = "app/${var.elb-name}/${module.elb.elb-arn-suffix}/targetgroup/${var.elb-tg-name}/${module.target-group.tg-arn-suffix}"
+      resource_label = "${module.elb.elb-arn-suffix}/${module.target-group.tg-arn-suffix}"
     }
     target_value = "60"
   }

@@ -30,7 +30,7 @@
 
   variable "log-destination" {
     type    = string
-    default = "/aws/log-groups" #for now this would be example
+    default = "/aws/lamp-autoscaling" #for now this would be example
   }
 
   variable "traffic-type" {

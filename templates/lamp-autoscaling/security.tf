@@ -32,7 +32,18 @@
       to_port           = 80
       protocol          = "tcp"
       # this would probably have to be configured dynamic
-      cidr_blocks       = split(",", var.ips) # web and app subnets
+      # cidr_blocks       = split(",", var.ips) # web and app subnets
+      cidr_blocks       = split(",", lookup(var.az1PrivateSubnetCidr, terraform.workspace)) # web and app subnets
+      security_group_id = aws_security_group.nat-sg.id
+    }
+    resource "aws_security_group_rule" "nat-sg-rule-http-02" {
+      type              = "ingress"
+      from_port         = 80
+      to_port           = 80
+      protocol          = "tcp"
+      # this would probably have to be configured dynamic
+      # cidr_blocks       = split(",", var.ips) # web and app subnets
+      cidr_blocks       = split(",", lookup(var.az2PrivateSubnetCidr, terraform.workspace)) # web and app subnets
       security_group_id = aws_security_group.nat-sg.id
     }
 
@@ -41,7 +52,18 @@
       from_port         = 443
       to_port           = 443
       protocol          = "tcp"
-      cidr_blocks       = split(",", var.ips) # web and app subnets
+      # cidr_blocks       = split(",", var.ips) # web and app subnets
+      cidr_blocks       = split(",", lookup(var.az1PrivateSubnetCidr, terraform.workspace)) # web and app subnets
+      security_group_id = aws_security_group.nat-sg.id
+    }
+    resource "aws_security_group_rule" "nat-sg-rule-https-02" {
+      type              = "ingress"
+      from_port         = 443
+      to_port           = 443
+      protocol          = "tcp"
+      # this would probably have to be configured dynamic
+      # cidr_blocks       = split(",", var.ips) # web and app subnets
+      cidr_blocks       = split(",", lookup(var.az2PrivateSubnetCidr, terraform.workspace)) # web and app subnets
       security_group_id = aws_security_group.nat-sg.id
     }
 
@@ -116,6 +138,15 @@
     }
 
     resource "aws_security_group_rule" "web-sg-rule-02" {
+      type                     = "ingress"
+      from_port                = 80
+      to_port                  = 80
+      protocol                 = "tcp"
+      source_security_group_id = aws_security_group.nat-sg.id
+      security_group_id        = aws_security_group.web-sg.id
+    }
+    
+    resource "aws_security_group_rule" "web-sg-rule-03" {
       type                     = "ingress"
       from_port                = 80
       to_port                  = 80

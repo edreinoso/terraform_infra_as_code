@@ -3,6 +3,11 @@ variable "file-name" {
   default = ""
 }
 
+variable "description" {
+  type    = string
+  default = ""
+}
+
 variable "function-name" {
   type    = string
   default = ""

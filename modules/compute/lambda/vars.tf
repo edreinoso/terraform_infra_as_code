@@ -1,25 +1,25 @@
 variable "file-name" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "function-name" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "role" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "handler" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "runtime" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
@@ -30,16 +30,16 @@ variable "layers" {
 }
 
 variable "timeout" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "memory-size" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "tags" {
-  type    = "map"
+  type    = map
   default = {}
 }

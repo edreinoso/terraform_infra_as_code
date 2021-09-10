@@ -5,6 +5,7 @@ resource "aws_instance" "ec2" {
   key_name                    = var.key_name
   vpc_security_group_ids      = var.security_group_ids
   user_data                   = var.user_data
+  user_data_base64            = var.user_data_base64
   iam_instance_profile        = var.instance_role
   associate_public_ip_address = var.public_ip
   source_dest_check           = var.source_check

@@ -28,6 +28,11 @@ variable "user-data" {
   default = ""
 }
 
+variable "user-data_base64" {
+  type    = string
+  default = ""
+}
+
 variable "key-name" {
   type    = string
   default = ""
@@ -44,7 +49,7 @@ variable "sourceCheck" {
 }
 
 variable "security-group-ids" {
-  type    = list
+  type    = list(any)
   default = []
 }
 
@@ -89,6 +94,6 @@ variable "ebs_block_device" {
 # }
 
 variable "tags" {
-  type    = map
+  type    = map(any)
   default = {}
 }

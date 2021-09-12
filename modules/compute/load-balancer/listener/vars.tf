@@ -1,29 +1,29 @@
-variable "listener-port" {
+variable "listener_port" {
   type    = string
   default = ""
 }
 
-variable "listener-protocol" {
+variable "listener_protocol" {
   type    = string
   default = ""
 }
 
-variable "elb-arn" {
+variable "elb_arn" {
   type    = string
   default = ""
 }
 
-variable "target-group-arn" {
+variable "target_group_arn" {
   type    = string
   default = ""
 }
 
-variable "certificate-arn" {
+variable "certificate_arn" {
   type    = string
   default = ""
 }
 
-variable "ssl-policy" {
-  type = string
+variable "ssl_policy" {
+  type    = string
   default = ""
 }

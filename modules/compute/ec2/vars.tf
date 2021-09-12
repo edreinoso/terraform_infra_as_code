@@ -43,7 +43,7 @@ variable "public_ip" {
   default = ""
 }
 
-variable "sourceCheck" {
+variable "source_check" {
   type    = string
   default = ""
 }

@@ -1,42 +1,34 @@
-variable "elb-name" {
+variable "elb_name" {
   type    = string
   default = ""
-
-  # type    = list
-  # default = []
 }
 
 variable "tags" {
-  type    = map
+  type    = map(any)
   default = {}
 }
 
-variable "elb-type" {
+variable "elb_type" {
   type    = string
   default = ""
 }
 
-variable "internal-elb" {
+variable "internal_elb" {
   type    = string
   default = ""
 }
 
-variable "subnet-ids" {
-  type    = list
+variable "subnet_ids" {
+  type    = list(any)
   default = []
 }
 
-variable "security-group" {
-  type    = list
+variable "security_group" {
+  type    = list(any)
   default = []
 }
 
-variable "vpc-id" {
-  type    = string
-  default = ""
-}
-
-variable "bucket-name" {
+variable "bucket_name" {
   type    = string
   default = ""
 }

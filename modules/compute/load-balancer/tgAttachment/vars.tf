@@ -1,9 +1,9 @@
-variable "target-group-arn" {
+variable "target_group_arn" {
   type    = string
   default = ""
 }
 
-variable "tg-id" {
+variable "tg_id" {
   type    = string
   default = ""
   # type    = list

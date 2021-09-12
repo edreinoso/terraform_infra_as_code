@@ -3,12 +3,12 @@ variable "ami" {
   default = ""
 }
 
-variable "instance-type" {
+variable "instance_type" {
   type    = string
   default = ""
 }
 
-variable "ec2-name" {
+variable "ec2_name" {
   type    = string
   default = ""
 }
@@ -18,27 +18,27 @@ variable "template" {
   default = ""
 }
 
-variable "subnet-ids" {
+variable "subnet_ids" {
   type    = string
   default = ""
 }
 
-variable "user-data" {
+variable "user_data" {
   type    = string
   default = ""
 }
 
-variable "user-data_base64" {
+variable "user_data_base64" {
   type    = string
   default = ""
 }
 
-variable "key-name" {
+variable "key_name" {
   type    = string
   default = ""
 }
 
-variable "public-ip" {
+variable "public_ip" {
   type    = string
   default = ""
 }
@@ -48,27 +48,12 @@ variable "sourceCheck" {
   default = ""
 }
 
-variable "security-group-ids" {
+variable "security_group_ids" {
   type    = list(any)
   default = []
 }
 
-variable "instance-role" {
-  type    = string
-  default = ""
-}
-
-variable "purpose" {
-  type    = string
-  default = ""
-}
-
-variable "application" {
-  type    = string
-  default = ""
-}
-
-variable "created-on" {
+variable "instance_role" {
   type    = string
   default = ""
 }
@@ -78,20 +63,6 @@ variable "ebs_block_device" {
   type        = list(map(string))
   default     = []
 }
-
-# variable "device-name" {
-#   type = string
-#   default = ""
-#   # type = "list"
-#   # default = []
-# }
-
-# variable "volume-size" {
-#   type    = string
-#   default = ""
-#   # type    = "list"
-#   # default = []
-# }
 
 variable "tags" {
   type    = map(any)
